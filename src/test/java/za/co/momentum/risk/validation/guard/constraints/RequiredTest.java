@@ -158,5 +158,4 @@ public class RequiredTest {
         Assertions.assertTrue( violations.isValid( "list" ) );
 
     }
-
 }
