@@ -2,8 +2,8 @@ package za.co.momentum.risk.validation;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import za.co.momentum.risk.validation.guard.validators.rsaidnumber.RSAIDNumberData;
-import za.co.momentum.risk.validation.guard.validators.rsaidnumber.RSAIDNumberParser;
+import com.github.sabob.guard.validators.rsaidnumber.RSAIDNumberData;
+import com.github.sabob.guard.validators.rsaidnumber.RSAIDNumberParser;
 
 public class ValidatorsTest {
 
