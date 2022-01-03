@@ -12,10 +12,6 @@ public class mustBe {
         return new NotNull();
     }
 
-    public static Required Required() {
-        return new Required();
-    }
-
     public static NotEmpty NotEmpty() {
         return new NotEmpty();
     }
