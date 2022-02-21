@@ -1,12 +1,12 @@
 package com.github.sabob.guard.constraints;
 
-import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.github.sabob.guard.Guard;
 import com.github.sabob.guard.constraints.misc.AtLeast;
 import com.github.sabob.guard.domain.Person;
 import com.github.sabob.guard.violation.Violations;
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AtLeastTest {
 
