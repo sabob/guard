@@ -42,13 +42,13 @@ public class AtLeastTest {
         String email = null;
         Constraint emailOrPhoneIsRequired = new Required();
 
-        AtLeast atLeastOneContactCriteria = new AtLeast( 1, emailOrPhoneIsRequired, "At least one of claimReferenceNumber or claimFolderId is required" );
-        atLeastOneContactCriteria.values( phoneNumber, email );
+        AtLeast atLeastOneContact = new AtLeast( 1, emailOrPhoneIsRequired, "At least one of claimReferenceNumber or claimFolderId is required" );
+        atLeastOneContact.values( phoneNumber, email );
 
         GuardException thrown = Assertions.assertThrows( GuardException.class, () -> {
             new Guard()
                     .of( "find-by-id" )
-                    .constraint( atLeastOneContactCriteria )
+                    .constraint( atLeastOneContact )
                     .throwIfInvalid();
         } );
 
