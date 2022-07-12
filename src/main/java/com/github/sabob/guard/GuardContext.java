@@ -42,7 +42,7 @@ public class GuardContext {
 
     public void setName( String name ) {
         if ( StringUtils.isBlank( name ) ) {
-            throw new IllegalArgumentException( "name is required!" );
+            throw new IllegalArgumentException("The name to guard cannot be null. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\")");
         }
         this.nameWasSet = true;
         this.name = name;

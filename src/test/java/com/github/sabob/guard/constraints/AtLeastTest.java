@@ -1,5 +1,6 @@
 package com.github.sabob.guard.constraints;
 
+import com.github.sabob.guard.Constraint;
 import com.github.sabob.guard.Guard;
 import com.github.sabob.guard.GuardException;
 import com.github.sabob.guard.constraints.misc.AtLeast;
@@ -27,7 +28,6 @@ public class AtLeastTest {
         AtLeast atLeast = new AtLeast( 2, new NotEmpty(), "At least 2 values are required!" );
         atLeast.values( "one" );
         guard.constraint( atLeast );
-        //atLeast.constraint( new NotEmpty2(), guard.context() );
 
         Violations violations = guard.validate();
 
@@ -38,16 +38,17 @@ public class AtLeastTest {
     @Test
     public void atLeastOneRequired() {
 
-        String claimFolderId = null;
-        String claimReferenceNumber = null;
+        String phoneNumber = null;
+        String email = null;
+        Constraint emailOrPhoneIsRequired = new Required();
 
-        AtLeast atLeastOneCriteria = new AtLeast( 1, new Required(), "At least one of claimReferenceNumber or claimFolderId is required" );
-        atLeastOneCriteria.values( claimFolderId, claimReferenceNumber );
+        AtLeast atLeastOneContactCriteria = new AtLeast( 1, emailOrPhoneIsRequired, "At least one of claimReferenceNumber or claimFolderId is required" );
+        atLeastOneContactCriteria.values( phoneNumber, email );
 
         GuardException thrown = Assertions.assertThrows( GuardException.class, () -> {
             new Guard()
                     .of( "find-by-id" )
-                    .constraint( atLeastOneCriteria )
+                    .constraint( atLeastOneContactCriteria )
                     .throwIfInvalid();
         } );
 

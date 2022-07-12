@@ -14,8 +14,12 @@ public class Guard {
     public Guard() {
     }
 
+    public Guard( String name ) {
+        of( name );
+    }
+
     public GuardContext getContext() {
-        return context;
+        return context();
     }
 
     public Guard of( String name ) {
@@ -29,21 +33,21 @@ public class Guard {
     }
 
     public Guard constraint( Constraint constraint ) {
-        GuardContext clone = context.clone();
+        GuardContext clone = context().clone();
 
         apply( constraint, clone );
         return this;
     }
 
     public Guard constraint( Constraint constraint, GuardContext guardContext ) {
-        GuardContext clone = context.merge( guardContext );
+        GuardContext clone = context().merge( guardContext );
 
         apply( constraint, clone );
         return this;
     }
 
     public Guard constraint( Constraint constraint, String message ) {
-        GuardContext clone = context.clone();
+        GuardContext clone = context().clone();
         clone.setMessage( message );
 
         apply( constraint, clone );
@@ -51,7 +55,7 @@ public class Guard {
     }
 
     public Guard constraint( Constraint constraint, Object value, String message ) {
-        GuardContext clone = context.clone();
+        GuardContext clone = context().clone();
         clone.setValue( value );
         clone.setMessage( message );
 
@@ -75,7 +79,7 @@ public class Guard {
     }
 
     public Violations validate() {
-        violations.merge( context.getViolations() );
+        violations.merge( context().getViolations() );
         return violations;
     }
 
@@ -145,6 +149,9 @@ public class Guard {
     }
 
     public GuardContext context() {
+        if ( context == null ) {
+            throw new IllegalStateException("No context available. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\") to create a context");
+        }
         return context;
     }
 
@@ -153,6 +160,7 @@ public class Guard {
         constraint.apply( ctx );
         Violations violations = getViolations();
         violations.merge( ctx.getViolations() );
+        context().violations.merge( ctx.getViolations() );
         failFastIfInvalid();
         return this;
     }

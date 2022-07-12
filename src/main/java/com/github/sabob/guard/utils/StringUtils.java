@@ -28,7 +28,7 @@ public class StringUtils {
 
     public static String capitalize( String value ) {
         if ( value == null ) {
-            return "";
+            return null;
         }
 
         if ( isBlank( value ) ) {
