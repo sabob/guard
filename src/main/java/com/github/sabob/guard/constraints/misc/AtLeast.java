@@ -31,7 +31,6 @@ public class AtLeast implements Constraint {
     public AtLeast constraint( Constraint constraint ) {
         this.constraint = constraint;
         return this;
-
     }
 
     public AtLeast values( Object... values ) {
