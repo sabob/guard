@@ -3,6 +3,8 @@ package com.github.sabob.guard;
 import com.github.sabob.guard.violation.Violation;
 import com.github.sabob.guard.violation.Violations;
 
+import java.util.Optional;
+
 public class Guard {
 
     protected boolean failFast = false;
@@ -83,6 +85,14 @@ public class Guard {
         return violations;
     }
 
+    public Optional<Violation> getLatestViolation() {
+        return getContext().getLatestViolation();
+    }
+
+    public Optional<Violation> getLatestViolation( String name ) {
+        return getContext().getLatestViolation( name );
+    }
+
     public Violations getViolations() {
         return violations;
     }
@@ -150,7 +160,7 @@ public class Guard {
 
     public GuardContext context() {
         if ( context == null ) {
-            throw new IllegalStateException("No context available. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\") to create a context");
+            throw new IllegalStateException( "No context available. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\") to create a context" );
         }
         return context;
     }

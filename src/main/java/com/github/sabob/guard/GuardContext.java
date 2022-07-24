@@ -4,6 +4,9 @@ import com.github.sabob.guard.utils.StringUtils;
 import com.github.sabob.guard.violation.Violation;
 import com.github.sabob.guard.violation.Violations;
 
+import java.util.List;
+import java.util.Optional;
+
 public class GuardContext {
 
     protected boolean nameWasSet = false;
@@ -42,7 +45,7 @@ public class GuardContext {
 
     public void setName( String name ) {
         if ( StringUtils.isBlank( name ) ) {
-            throw new IllegalArgumentException("The name to guard cannot be null. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\")");
+            throw new IllegalArgumentException( "The name to guard cannot be null. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\")" );
         }
         this.nameWasSet = true;
         this.name = name;
@@ -148,6 +151,22 @@ public class GuardContext {
 
     public void setViolations( Violations violations ) {
         this.violations = violations;
+    }
+
+    public Optional<Violation> getLatestViolation() {
+        return getLatestViolation( getName() );
+    }
+
+    public Optional<Violation> getLatestViolation( String name ) {
+        List<Violation> list = getViolations().getList( name );
+
+        if ( list.isEmpty() ) {
+            return Optional.empty();
+        }
+
+        Violation violation = list.get( list.size() - 1 );
+        return Optional.of( violation );
+
     }
 
     @Override

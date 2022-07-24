@@ -1,33 +1,44 @@
 # guard
-Guard is a simple and easy-to-use, general purpose, 
-validation library for Java.
+Guard is a simple and easy-to-use, general purpose, validation library for Java.
 
-While [Bean Validation](https://beanvalidation.org/) is great
+The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
+
+Constraints are applied to the values of the object and all violations of the constraint are added
+to a list. Once all the constraints are applied, you can retrieve the list of violations and 
+then throw an exception containing this list or branch your code depending on a violation.  
+
+You can set Guard to fail-fast if a constraint is violated, meaning it will throw an exception 
+immediately. Or run leniently and wait until all constraints have been applied before retrieving
+the list of violations.
+
+### Why not use Bean Validation or a different Validation library?
+
+[Bean Validation](https://beanvalidation.org/) is great
 for static validation of classes, it doesn't cater for runtime
 validation of objects.
 
-Bean Validation shines when applying constraints on data 
-structures on the boundary of the application eg. 
+Bean Validation shines when applying constraints on data
+structures on the boundary of the application eg.
 Data Transfer Objects (DTO) that is often used as input
 to REST requests.
 
-But Bean Validation isn't intended for dynamic validations 
+But Bean Validation isn't intended for dynamic validations
 at runtime.
 
 For example, given a REST endpoint to add users we must first check for an existing
 user in the database with the same username before adding.
 
-In the above scenario Bean Validation won't work. 
+In the above scenario Bean Validation isn't the tool for the job.
 
 This is where an Object / Runtime validator can be used.
 
 There are other Java validation libraries available, but I found
 them too sophisticated for my needs.
 
-Guard is complimentary to Bean Validation and is often used on the boundary of your application,
-eg REST endpoints,  where data is added and updated.
+Guard is complimentary to Bean Validation and is often used on the boundary of the application,
+eg. REST endpoints,  where data is added or updated.
 Guard uses the familiar concepts of Constraints and Violations
-and ships with the same basic validations such is Null, Empty, Size, Max etc.
+and ships with basic validations such is NotNull, Empty, Size, Max etc.
 
 ## Highlights 
 * Easy to learn.
@@ -39,12 +50,35 @@ and ships with the same basic validations such is Null, Empty, Size, Max etc.
 * Constraints can be composed to create new constraints.
 
 ## Basic Usage
-The idea behind Guard is to guard objects, in most cases,
-the individual fields of an object.
+The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
 
 A Guard must have a **name**. 
 
-This name will be used as the name of the Violations that are 
+The name should be unique and all violations that occur while applying constraints, will be
+added under this name.
+
+For example:
+```
+Guard guard = new Guard("some_name")
+.value("") // empty value will violate the Required constraint
+.constraint( new Required());
+
+// a Violation will be added for "some_name".
+ 
+// Now if we change the name
+guard.of("another_name")
+.value("") // empty value will violate the Required constraint
+.constraint( new Required());
+// a Violation will be added for "another_name".
+
+// One violation will be registered for each name
+// Hence the following Assertions will be true
+Assertions.assertTrue( violations.getList( FIRSTNAME ).size() == 1 );
+Assertions.assertTrue( violations.getList( LASTNAME ).size() == 1 );
+```
+
+
+will be used as the name of the Violations that are 
 created when constraints are applied to the values of the object
 that is guarded.
 
@@ -186,3 +220,22 @@ Violations violations = new Guard( "client phone number" )
         Assertions.assertTrue( violations.getList().size() == 2 );
 ```
 This will result in a Violation for each Constraint.
+
+### Composition
+As Java is object-oriented, we can assemble more complex constraints from 
+others.
+
+The AtLeast constraint is a good example of this approach.
+
+### isValid() / isInvalid() utility methods
+The constraint interface exposes the __isValid( Object value )__  and
+__isInvalid( Object value )__ methods that can be used as utility methods
+to validate values.
+```
+List list = new ArrayList();
+Size size = new Size( 1, 5 );
+if (size.isInvalid(list)) {
+    System.out.println("List must contain contain at least 1 
+    but less than 5 items");
+```
+

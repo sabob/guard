@@ -62,10 +62,9 @@ public class GuardTest {
         Person person = new Person();
         person.setFirstname( "" );
 
-        Guard guard = new Guard();
+        Guard guard = new Guard("firstname");
 
-        Violations violations = guard.of( "firstname" )
-                                     .code( "FN" )
+        Violations violations = guard.code( "FN" )
                                      .value( person.getFirstname() )
                                      .constraint( new NotNull() )
                                      .constraint( new NotEmpty() )
@@ -91,6 +90,7 @@ public class GuardTest {
         Assertions.assertThrows( IllegalStateException.class, () -> {
 
             Guard guard = new Guard();
+            guard.context();
         } );
     }
 

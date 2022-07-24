@@ -22,8 +22,7 @@ public class AtLeastTest {
 
         person.setLastname( "Foo" );
 
-        Guard guard = new Guard();
-        guard.of( "lastname" );
+        Guard guard = new Guard("lastname");
 
         AtLeast atLeast = new AtLeast( 2, new NotEmpty(), "At least 2 values are required!" );
         atLeast.values( "one" );
