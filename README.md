@@ -58,7 +58,7 @@ The name should be unique and all violations that occur while applying constrain
 added under this name.
 
 For example:
-```
+```java
 Guard guard = new Guard("some_name")
 .value("") // empty value will violate the Required constraint
 .constraint( new Required());
@@ -84,7 +84,7 @@ that is guarded.
 
 Below is a quick example:
 
-```
+```java
 Guard guard = new Guard("firstname");
 guard.value("steve");
 giard.constraint( new Required() );
@@ -104,7 +104,7 @@ This can be read as "Create a Guard for the firstname Field"
 The above example can be written a bit more fluently as most
 methods return the guard instance:
 
-```
+```java
 Violations violations = new Guard("firstname")
 .value("steve")
 .constraint( new Required() )
@@ -114,7 +114,7 @@ Violations violations = new Guard("firstname")
 ### Multiple Constraints
 We can apply more than one Constraint on a value:
 
-```
+```java
 Violations violations = new Guard("firstname")
 .value("steve")
 .constraint( new NotNull() )
@@ -128,7 +128,7 @@ The same Guard instance can be applied to different values
 for the same Object or Field.
 Just change the **value** and apply another Constraint.
 
-```
+```java
 Violations violations = new Guard("firstname")
 .value("Steve")
 .constraint( new Size().max(10) )
@@ -146,7 +146,7 @@ This can be read as "This is a Guard **of** the firstname Field".
 The word, for, would have been better, but it's a keyword in Java,
 so we settle for the next best thing.
 
-```
+```java
 Violations violations = new Guard("firstname")
 .value("Steve")
 .constraint( new NotNull() )
@@ -170,7 +170,7 @@ against the current context.
 New GuardContexts are created when the **name** is changed
 through the **of()** method.
 
-```
+```java
 Violations violations = new Guard("firstname")
 .value("")
 .constraint( new Required() )
@@ -197,7 +197,7 @@ So even when the context is switched from "firstname" to "lastname",
 all "firstname" Violations are still present in the list of
 Violations returned by the "validate()" method.
 
-```
+```java
 Violations violations = new Guard("firstname")
     .value(null)
     .constraint( new NotNull() )
@@ -212,7 +212,7 @@ Violations violations = new Guard("firstname")
 We can apply multiple constraints on a Guard with the same
 name.
 
-```
+```java
 Violations violations = new Guard( "client phone number" )
                 .value( "abc123" )
                 .constraint( new Size().max(3) ) // value length cannot be greater than 3
@@ -235,7 +235,7 @@ The constraint interface exposes the __isValid( Object value )__  and
 __isInvalid( Object value )__ methods that can be used as utility methods
 to validate values.
 
-```
+``` java
 List list = new ArrayList();
 Size size = new Size( 1, 5 );
 if (size.isInvalid(list)) {
