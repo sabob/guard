@@ -84,7 +84,7 @@ that is guarded.
 
 Below is a quick example:
 
-``` java
+```
 Guard guard = new Guard("firstname");
 guard.value("steve");
 giard.constraint( new Required() );
@@ -127,6 +127,7 @@ Violations violations = new Guard("firstname")
 The same Guard instance can be applied to different values
 for the same Object or Field.
 Just change the **value** and apply another Constraint.
+
 ```
 Violations violations = new Guard("firstname")
 .value("Steve")
@@ -144,6 +145,7 @@ Just change the **name** through the **of()** method.
 This can be read as "This is a Guard **of** the firstname Field".
 The word, for, would have been better, but it's a keyword in Java,
 so we settle for the next best thing.
+
 ```
 Violations violations = new Guard("firstname")
 .value("Steve")
@@ -209,6 +211,7 @@ Violations violations = new Guard("firstname")
 
 We can apply multiple constraints on a Guard with the same
 name.
+
 ```
 Violations violations = new Guard( "client phone number" )
                 .value( "abc123" )
@@ -231,6 +234,7 @@ The AtLeast constraint is a good example of this approach.
 The constraint interface exposes the __isValid( Object value )__  and
 __isInvalid( Object value )__ methods that can be used as utility methods
 to validate values.
+
 ```
 List list = new ArrayList();
 Size size = new Size( 1, 5 );
