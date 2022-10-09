@@ -22,7 +22,7 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDate( LocalDate.of( 2024, 1, 8 ) );
+        bean.setLocalDate( LocalDate.of( 2054, 1, 8 ) );
 
         violations = guard.of( "test.1" )
                           .value( bean.getLocalDate() )
