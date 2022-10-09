@@ -5,7 +5,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class GuardException extends RuntimeException {
 
-    protected Violations violations;
+    protected Violations violations = new Violations();
 
     public GuardException() {
     }
