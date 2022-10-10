@@ -61,9 +61,19 @@ public class EnumOf implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString( EnumOf.class.getSimpleName(), value );
+        boolean valid = false;
 
-        boolean valid = Validators.isValidEnumValue( strValue, enumClass );
+        boolean isEnum = enumClass.isEnum();
+
+        if ( isEnum ) {
+            Enum en = ( Enum ) value;
+            valid = Validators.isValidEnumValue( en, enumClass );
+
+        } else {
+            String strValue = GuardUtils.toString( EnumOf.class.getSimpleName(), value );
+            valid = Validators.isValidEnumValue( strValue, enumClass );
+        }
+
         return valid;
     }
 }
