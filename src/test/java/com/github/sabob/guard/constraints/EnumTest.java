@@ -83,11 +83,7 @@ public class EnumTest {
 
         Guard guard = new Guard();
 
-        ObjectBean objBean = new ObjectBean();
-
         String propertyName = "Enum Property";
-
-        objBean.setString( "foo" );
 
         Violations violations;
         violations = guard.of( propertyName )

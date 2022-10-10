@@ -61,9 +61,9 @@ public class EnumOf implements Constraint {
             return true;
         }
 
-        boolean valid = false;
+        boolean valid;
 
-        boolean isEnum = enumClass.isEnum();
+        boolean isEnum = value.getClass().isEnum();
 
         if ( isEnum ) {
             Enum en = ( Enum ) value;
