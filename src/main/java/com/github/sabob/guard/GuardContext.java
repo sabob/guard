@@ -30,22 +30,22 @@ public class GuardContext {
     public GuardContext() {
     }
 
-    public GuardContext( Object value, String message ) {
-        setValue( value );
-        setMessage( message );
+    public GuardContext(Object value, String message) {
+        setValue(value);
+        setMessage(message);
     }
 
-    GuardContext( String name ) {
-        setName( name );
+    GuardContext(String name) {
+        setName(name);
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName( String name ) {
-        if ( StringUtils.isBlank( name ) ) {
-            throw new IllegalArgumentException( "The name to guard cannot be null. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\")" );
+    public void setName(String name) {
+        if (StringUtils.isBlank(name)) {
+            throw new IllegalArgumentException("The name to guard cannot be null. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\")");
         }
         this.nameWasSet = true;
         this.name = name;
@@ -55,13 +55,13 @@ public class GuardContext {
         return code;
     }
 
-    public void setCode( String code ) {
+    public void setCode(String code) {
         this.codeWasSet = true;
         this.code = code;
     }
 
-    public GuardContext code( String code ) {
-        setCode( code );
+    public GuardContext code(String code) {
+        setCode(code);
         return this;
     }
 
@@ -69,13 +69,13 @@ public class GuardContext {
         return message;
     }
 
-    public void setMessage( String message ) {
+    public void setMessage(String message) {
         this.messageWasSet = true;
         this.message = message;
     }
 
-    public GuardContext message( String message ) {
-        setMessage( message );
+    public GuardContext message(String message) {
+        setMessage(message);
         return this;
     }
 
@@ -83,55 +83,55 @@ public class GuardContext {
         return value;
     }
 
-    public void setValue( Object value ) {
+    public void setValue(Object value) {
         this.valueWasSet = true;
         this.value = value;
     }
 
-    public GuardContext value( Object value ) {
-        setValue( value );
+    public GuardContext value(Object value) {
+        setValue(value);
         return this;
     }
 
     public Violation toViolation() {
         Violation violation = new Violation();
-        violation.setCode( getCode() );
-        violation.setName( getName() );
-        violation.setValue( getValue() );
-        violation.setMessage( getMessage() );
+        violation.setCode(getCode());
+        violation.setName(getName());
+        violation.setValue(getValue());
+        violation.setMessage(getMessage());
         return violation;
     }
 
     @Override
     public GuardContext clone() {
-        GuardContext clone = new GuardContext( getName() );
-        clone.setCode( getCode() );
-        clone.setMessage( getMessage() );
+        GuardContext clone = new GuardContext(getName());
+        clone.setCode(getCode());
+        clone.setMessage(getMessage());
 
-        if ( this.valueWasSet ) {
-            clone.setValue( getValue() );
+        if (this.valueWasSet) {
+            clone.setValue(getValue());
         }
 
         return clone;
     }
 
-    public GuardContext merge( GuardContext guardContext ) {
+    public GuardContext merge(GuardContext guardContext) {
         GuardContext clone = clone();
 
-        if ( guardContext.nameWasSet ) {
-            clone.setName( guardContext.getName() );
+        if (guardContext.nameWasSet) {
+            clone.setName(guardContext.getName());
         }
 
-        if ( guardContext.codeWasSet ) {
-            clone.setCode( guardContext.getCode() );
+        if (guardContext.codeWasSet) {
+            clone.setCode(guardContext.getCode());
         }
 
-        if ( guardContext.messageWasSet ) {
-            clone.setMessage( guardContext.getMessage() );
+        if (guardContext.messageWasSet) {
+            clone.setMessage(guardContext.getMessage());
         }
 
-        if ( guardContext.valueWasSet ) {
-            clone.setValue( guardContext.getValue() );
+        if (guardContext.valueWasSet) {
+            clone.setValue(guardContext.getValue());
         }
 
         return clone;
@@ -141,47 +141,47 @@ public class GuardContext {
         return valueWasSet;
     }
 
-    public void addViolation( Violation violation ) {
-        getViolations().add( violation );
+    public void addViolation(Violation violation) {
+        getViolations().add(violation);
     }
 
     public Violations getViolations() {
         return violations;
     }
 
-    public void setViolations( Violations violations ) {
+    public void setViolations(Violations violations) {
         this.violations = violations;
     }
 
     public Optional<Violation> getLatestViolation() {
-        return getLatestViolation( getName() );
+        return getLatestViolation(getName());
     }
 
-    public Optional<Violation> getLatestViolation( String name ) {
-        List<Violation> list = getViolations().getList( name );
+    public Optional<Violation> getLatestViolation(String name) {
+        List<Violation> list = getViolations().getList(name);
 
-        if ( list.isEmpty() ) {
+        if (list.isEmpty()) {
             return Optional.empty();
         }
 
-        Violation violation = list.get( list.size() - 1 );
-        return Optional.of( violation );
+        Violation violation = list.get(list.size() - 1);
+        return Optional.of(violation);
 
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append( "GuardContext { " +
+        sb.append("GuardContext { " +
                 "name = " + name +
-                ", code = " + code );
+                ", code = " + code);
 
-        if ( message == null ) {
-            sb.append( ", message = null" );
+        if (message == null) {
+            sb.append(", message = null");
         } else {
-            sb.append( ", message = \"" + message + "\"" );
+            sb.append(", message = \"" + message + "\"");
         }
-        sb.append( ", value = " + value + " }" );
+        sb.append(", value = " + value + " }");
 
         return sb.toString();
     }

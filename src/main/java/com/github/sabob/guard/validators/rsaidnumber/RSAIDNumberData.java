@@ -25,7 +25,7 @@ public class RSAIDNumberData {
      * @param citizenship
      * @param valid
      */
-    public RSAIDNumberData( String idNumber, LocalDate dateOfBirth, Gender gender, Nationality citizenship, boolean valid ) {
+    public RSAIDNumberData(String idNumber, LocalDate dateOfBirth, Gender gender, Nationality citizenship, boolean valid) {
         this.idNumber = idNumber;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -52,7 +52,7 @@ public class RSAIDNumberData {
      */
     public int getAge() {
         LocalDate today = LocalDate.now();
-        Period p = Period.between( this.dateOfBirth, today );
+        Period p = Period.between(this.dateOfBirth, today);
         return p.getYears();
     }
 

@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class FractionTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void maxTest() {
@@ -20,15 +20,15 @@ public class FractionTest {
         Violations violations;
 
         PrimBean bean = new PrimBean();
-        bean.setFloat( 0.0000001f );
+        bean.setFloat(0.0000001f);
 
-        violations = guard.of( "maxTest" )
-                          .value( bean.getFloat() )
-                          .constraint( new FractionLength( 0, 2 ) )
-                          .validate();
+        violations = guard.of("maxTest")
+                .value(bean.getFloat())
+                .constraint(new FractionLength(0, 2))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isInvalid() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
+        Assertions.assertTrue(violations.isInvalid());
 
     }
 
@@ -40,15 +40,15 @@ public class FractionTest {
         Person person = new Person();
 
         PrimBean bean = new PrimBean();
-        bean.setFloat( 0.1f );
+        bean.setFloat(0.1f);
 
-        violations = guard.of( "minTest" )
-                          .value( bean.getFloat() )
-                          .constraint( new FractionLength( 5, 0 ) )
-                          .validate();
+        violations = guard.of("minTest")
+                .value(bean.getFloat())
+                .constraint(new FractionLength(5, 0))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isInvalid() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
+        Assertions.assertTrue(violations.isInvalid());
 
     }
 
@@ -58,14 +58,14 @@ public class FractionTest {
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "fractionTest" )
-                          .value( null )
-                          .constraint( new Size( 10, 15 ) )
-                          .validate();
+        violations = guard.of("fractionTest")
+                .value(null)
+                .constraint(new Size(10, 15))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
+        Assertions.assertTrue(violations.isValid());
 
     }
 

@@ -10,39 +10,39 @@ import com.github.sabob.guard.violation.Violation;
 //The value of the value or values inside collection must not be empty or contain only whitespace characters.
 public class NotBlank implements Constraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "not.blank.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("not.blank.message");
 
     public NotBlank() {
     }
 
     @Override
-    public void apply( GuardContext guardContext ) {
+    public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
 
-        boolean valid = isValid( value );
+        boolean valid = isValid(value);
 
-        if ( !valid ) {
+        if (!valid) {
 
-            String name = StringUtils.capitalize( guardContext.getName() );
-            Violation violation = GuardUtils.toViolationWithTemplateMessage( guardContext, messageTemplate, name );
-            guardContext.addViolation( violation );
+            String name = StringUtils.capitalize(guardContext.getName());
+            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+            guardContext.addViolation(violation);
         }
     }
 
     @Override
-    public boolean isValid( Object value ) {
+    public boolean isValid(Object value) {
 
-        if ( value == null ) {
+        if (value == null) {
             return true;
         }
 
-        if ( value instanceof String ) {
-            return Validators.isNotBlank( value.toString() );
+        if (value instanceof String) {
+            return Validators.isNotBlank(value.toString());
         }
 
-        throw new IllegalStateException( value.getClass() + " is not a valid type for the " + getClass().getSimpleName() + " constraint. " +
-                this.getClass().getSimpleName() + " can only be applied to Strings." );
+        throw new IllegalStateException(value.getClass() + " is not a valid type for the " + getClass().getSimpleName() + " constraint. " +
+                this.getClass().getSimpleName() + " can only be applied to Strings.");
     }
 }
 

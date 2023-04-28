@@ -9,41 +9,41 @@ import com.github.sabob.guard.violation.Violation;
 //The value of the field or property must match the regular expression defined in the regexp element.
 public class Pattern implements Constraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "pattern.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("pattern.message");
 
     public java.util.regex.Pattern pattern = null;
 
     private String regularExpression = null;
 
-    public Pattern( String regularExpression ) {
+    public Pattern(String regularExpression) {
         this.regularExpression = regularExpression;
-        pattern = java.util.regex.Pattern.compile( regularExpression );
+        pattern = java.util.regex.Pattern.compile(regularExpression);
     }
 
     @Override
-    public void apply( GuardContext guardContext ) {
+    public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
 
-        boolean valid = isValid( value );
+        boolean valid = isValid(value);
 
-        String name = StringUtils.capitalize( guardContext.getName() );
-        Violation violation = GuardUtils.toViolationWithTemplateMessage( guardContext, messageTemplate, name, regularExpression );
-        guardContext.addViolation( violation );
+        String name = StringUtils.capitalize(guardContext.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, regularExpression);
+        guardContext.addViolation(violation);
     }
 
     @Override
-    public boolean isValid( Object value ) {
+    public boolean isValid(Object value) {
 
-        if ( value == null ) {
+        if (value == null) {
             return true;
         }
 
-        String strValue = GuardUtils.toString( Pattern.class.getSimpleName(), value );
+        String strValue = GuardUtils.toString(Pattern.class.getSimpleName(), value);
 
-        java.util.regex.Matcher m = pattern.matcher( strValue );
+        java.util.regex.Matcher m = pattern.matcher(strValue);
 
-        if ( m.matches() ) {
+        if (m.matches()) {
             return true;
         }
         return false;

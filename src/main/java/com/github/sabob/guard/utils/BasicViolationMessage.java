@@ -11,16 +11,16 @@ public class BasicViolationMessage {
     public BasicViolationMessage() {
     }
 
-    public BasicViolationMessage( String name ) {
+    public BasicViolationMessage(String name) {
         this.name = name;
     }
 
-    public BasicViolationMessage( String name, String message ) {
+    public BasicViolationMessage(String name, String message) {
         this.name = name;
         this.message = message;
     }
 
-    public BasicViolationMessage( String name, String message, String code ) {
+    public BasicViolationMessage(String name, String message, String code) {
         this.name = name;
         this.message = message;
         this.code = code;
@@ -30,7 +30,7 @@ public class BasicViolationMessage {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -38,7 +38,7 @@ public class BasicViolationMessage {
         return message;
     }
 
-    public void setMessage( String message ) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -46,7 +46,7 @@ public class BasicViolationMessage {
         return code;
     }
 
-    public void setCode( String code ) {
+    public void setCode(String code) {
         this.code = code;
     }
 

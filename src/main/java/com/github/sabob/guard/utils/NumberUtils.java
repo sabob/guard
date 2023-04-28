@@ -5,135 +5,135 @@ import java.math.BigInteger;
 
 public class NumberUtils {
 
-    public static boolean isLessThanOrEqual( Number x, Number y ) {
-        return !isGreaterThan( x, y );
+    public static boolean isLessThanOrEqual(Number x, Number y) {
+        return !isGreaterThan(x, y);
     }
 
-    public static boolean isLessThan( Number x, Number y ) {
+    public static boolean isLessThan(Number x, Number y) {
 
-        int result = compare( x, y );
+        int result = compare(x, y);
 
-        if ( result == -1 ) {
+        if (result == -1) {
             return true;
         }
         return false;
     }
 
-    public static boolean isGreaterThanOrEqual( Number x, Number y ) {
-        return !isLessThan( x, y );
+    public static boolean isGreaterThanOrEqual(Number x, Number y) {
+        return !isLessThan(x, y);
     }
 
-    public static boolean isGreaterThan( Number x, Number y ) {
+    public static boolean isGreaterThan(Number x, Number y) {
 
-        int result = compare( x, y );
+        int result = compare(x, y);
 
-        if ( result == 1 ) {
+        if (result == 1) {
             return true;
         }
         return false;
     }
 
-    public static boolean equal( Number x, Number y ) {
+    public static boolean equal(Number x, Number y) {
 
-        int result = compare( x, y );
+        int result = compare(x, y);
 
-        if ( result == 0 ) {
+        if (result == 0) {
             return true;
         }
         return false;
     }
 
-    public static boolean isPositive( Number x ) {
+    public static boolean isPositive(Number x) {
 
-        BigDecimal newBigDecimal = numToBigDecimal( x );
+        BigDecimal newBigDecimal = numToBigDecimal(x);
 
         int result = newBigDecimal.signum();
 
-        if ( result == 1 ) {
+        if (result == 1) {
             return true;
         }
         return false;
     }
 
-    public static boolean isPositiveOrZero( Number x ) {
+    public static boolean isPositiveOrZero(Number x) {
 
-        BigDecimal newBigDecimal = numToBigDecimal( x );
+        BigDecimal newBigDecimal = numToBigDecimal(x);
 
         int result = newBigDecimal.signum();
 
-        if ( result == 1 || result == 0 ) {
+        if (result == 1 || result == 0) {
             return true;
         }
         return false;
     }
 
-    public static boolean isNegative( Number x ) {
+    public static boolean isNegative(Number x) {
 
-        BigDecimal newBigDecimal = numToBigDecimal( x );
+        BigDecimal newBigDecimal = numToBigDecimal(x);
 
         int result = newBigDecimal.signum();
 
-        if ( result == -1 ) {
+        if (result == -1) {
             return true;
         }
         return false;
     }
 
-    public static boolean isNegativeOrZero( Number x ) {
+    public static boolean isNegativeOrZero(Number x) {
 
-        BigDecimal newBigDecimal = numToBigDecimal( x );
+        BigDecimal newBigDecimal = numToBigDecimal(x);
 
         int result = newBigDecimal.signum();
 
-        if ( result == -1 || result == 0 ) {
+        if (result == -1 || result == 0) {
             return true;
         }
         return false;
     }
 
-    public static boolean isZero( Number x ) {
+    public static boolean isZero(Number x) {
 
-        BigDecimal newBigDecimal = numToBigDecimal( x );
+        BigDecimal newBigDecimal = numToBigDecimal(x);
 
         int result = newBigDecimal.signum();
 
-        if ( result == 0 ) {
+        if (result == 0) {
             return true;
         }
         return false;
     }
 
-    public static int compare( Number x, Number y ) {
+    public static int compare(Number x, Number y) {
 
-        if ( isSpecial( x ) || isSpecial( y ) ) {
+        if (isSpecial(x) || isSpecial(y)) {
 
-            return Double.compare( x.doubleValue(), y.doubleValue() );
+            return Double.compare(x.doubleValue(), y.doubleValue());
 
         } else
-            return numToBigDecimal( x ).compareTo( numToBigDecimal( y ) );
+            return numToBigDecimal(x).compareTo(numToBigDecimal(y));
     }
 
-    public static boolean isSpecial( Number x ) {
+    public static boolean isSpecial(Number x) {
 
         boolean isNaN;
         boolean isInfinite;
 
-        if ( x instanceof Double ) {
+        if (x instanceof Double) {
 
-            isNaN = Double.isNaN( ( Double ) x );
-            isInfinite = Double.isInfinite( ( Double ) x );
+            isNaN = Double.isNaN((Double) x);
+            isInfinite = Double.isInfinite((Double) x);
 
-            if ( isNaN || isInfinite ) {
+            if (isNaN || isInfinite) {
                 return true;
             }
         }
 
-        if ( x instanceof Float ) {
+        if (x instanceof Float) {
 
-            isNaN = Float.isNaN( ( Float ) x );
-            isInfinite = Float.isInfinite( ( Float ) x );
+            isNaN = Float.isNaN((Float) x);
+            isInfinite = Float.isInfinite((Float) x);
 
-            if ( isNaN || isInfinite ) {
+            if (isNaN || isInfinite) {
                 return true;
             }
         }
@@ -141,46 +141,46 @@ public class NumberUtils {
         return false;
     }
 
-    public static BigDecimal numToBigDecimal( Number number ) {
+    public static BigDecimal numToBigDecimal(Number number) {
 
-        if ( number instanceof BigDecimal ) {
+        if (number instanceof BigDecimal) {
             BigDecimal newBigDecimal;
-            newBigDecimal = ( BigDecimal ) number;
+            newBigDecimal = (BigDecimal) number;
             return newBigDecimal;
         }
 
-        if ( number instanceof BigInteger ) {
-            return new BigDecimal( ( BigInteger ) number );
+        if (number instanceof BigInteger) {
+            return new BigDecimal((BigInteger) number);
         }
 
-        if ( number instanceof Byte ||
+        if (number instanceof Byte ||
                 number instanceof Short ||
                 number instanceof Integer ||
-                number instanceof Long ) {
-            return new BigDecimal( number.longValue() );
+                number instanceof Long) {
+            return new BigDecimal(number.longValue());
         }
 
-        if ( number instanceof Float ||
-                number instanceof Double ) {
-            String str = String.valueOf( number );
-            return new BigDecimal( str );
+        if (number instanceof Float ||
+                number instanceof Double) {
+            String str = String.valueOf(number);
+            return new BigDecimal(str);
         }
 
         try {
 
-            return new BigDecimal( number.toString() );
-        } catch ( final NumberFormatException ex ) {
-            throw new RuntimeException( "The given number (\"" + number + "\" of class " + number.getClass().getName()
-                    + ") does not have a parsable string representation", ex );
+            return new BigDecimal(number.toString());
+        } catch (final NumberFormatException ex) {
+            throw new RuntimeException("The given number (\"" + number + "\" of class " + number.getClass().getName()
+                    + ") does not have a parsable string representation", ex);
         }
     }
 
-    public static BigDecimal strToBigDecimal( String str ) {
+    public static BigDecimal strToBigDecimal(String str) {
         try {
-            return new BigDecimal( str );
-        } catch ( IllegalArgumentException ex ) {
-            throw new RuntimeException( "The given value (\"" + str + "\" of class " + str.getClass().getName()
-                    + ") does not have a parsable string representation", ex );
+            return new BigDecimal(str);
+        } catch (IllegalArgumentException ex) {
+            throw new RuntimeException("The given value (\"" + str + "\" of class " + str.getClass().getName()
+                    + ") does not have a parsable string representation", ex);
         }
     }
 
@@ -209,8 +209,8 @@ public class NumberUtils {
      * use {@link NumberUtils#isCreatable(String)} instead
      */
     @Deprecated
-    public static boolean isNumber( final String str ) {
-        return isCreatable( str );
+    public static boolean isNumber(final String str) {
+        return isCreatable(str);
     }
 
     /**
@@ -232,8 +232,8 @@ public class NumberUtils {
      * @return {@code true} if the string is a correctly formatted number
      * @since 3.5
      */
-    public static boolean isCreatable( final String str ) {
-        if ( StringUtils.isEmpty( str ) ) {
+    public static boolean isCreatable(final String str) {
+        if (StringUtils.isEmpty(str)) {
             return false;
         }
         final char[] chars = str.toCharArray();
@@ -244,27 +244,27 @@ public class NumberUtils {
         boolean foundDigit = false;
         // deal with any possible sign up front
         final int start = chars[0] == '-' || chars[0] == '+' ? 1 : 0;
-        if ( sz > start + 1 && chars[start] == '0' && !str.contains( "." ) ) { // leading 0, skip if is a decimal number
-            if ( chars[start + 1] == 'x' || chars[start + 1] == 'X' ) { // leading 0x/0X
+        if (sz > start + 1 && chars[start] == '0' && !str.contains(".")) { // leading 0, skip if is a decimal number
+            if (chars[start + 1] == 'x' || chars[start + 1] == 'X') { // leading 0x/0X
                 int i = start + 2;
-                if ( i == sz ) {
+                if (i == sz) {
                     return false; // str == "0x"
                 }
                 // checking hex (it can't be anything else)
-                for ( ; i < chars.length; i++ ) {
-                    if ( (chars[i] < '0' || chars[i] > '9')
+                for (; i < chars.length; i++) {
+                    if ((chars[i] < '0' || chars[i] > '9')
                             && (chars[i] < 'a' || chars[i] > 'f')
-                            && (chars[i] < 'A' || chars[i] > 'F') ) {
+                            && (chars[i] < 'A' || chars[i] > 'F')) {
                         return false;
                     }
                 }
                 return true;
             }
-            if ( Character.isDigit( chars[start + 1] ) ) {
+            if (Character.isDigit(chars[start + 1])) {
                 // leading 0, but not hex, must be octal
                 int i = start + 1;
-                for ( ; i < chars.length; i++ ) {
-                    if ( chars[i] < '0' || chars[i] > '7' ) {
+                for (; i < chars.length; i++) {
+                    if (chars[i] < '0' || chars[i] > '7') {
                         return false;
                     }
                 }
@@ -276,30 +276,30 @@ public class NumberUtils {
         int i = start;
         // loop to the next to last char or to the last char if we need another digit to
         // make a valid number (e.g. chars[0..5] = "1234E")
-        while ( i < sz || i < sz + 1 && allowSigns && !foundDigit ) {
-            if ( chars[i] >= '0' && chars[i] <= '9' ) {
+        while (i < sz || i < sz + 1 && allowSigns && !foundDigit) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
                 foundDigit = true;
                 allowSigns = false;
 
-            } else if ( chars[i] == '.' ) {
-                if ( hasDecPoint || hasExp ) {
+            } else if (chars[i] == '.') {
+                if (hasDecPoint || hasExp) {
                     // two decimal points or dec in exponent
                     return false;
                 }
                 hasDecPoint = true;
-            } else if ( chars[i] == 'e' || chars[i] == 'E' ) {
+            } else if (chars[i] == 'e' || chars[i] == 'E') {
                 // we've already taken care of hex.
-                if ( hasExp ) {
+                if (hasExp) {
                     // two E's
                     return false;
                 }
-                if ( !foundDigit ) {
+                if (!foundDigit) {
                     return false;
                 }
                 hasExp = true;
                 allowSigns = true;
-            } else if ( chars[i] == '+' || chars[i] == '-' ) {
-                if ( !allowSigns ) {
+            } else if (chars[i] == '+' || chars[i] == '-') {
+                if (!allowSigns) {
                     return false;
                 }
                 allowSigns = false;
@@ -309,32 +309,32 @@ public class NumberUtils {
             }
             i++;
         }
-        if ( i < chars.length ) {
-            if ( chars[i] >= '0' && chars[i] <= '9' ) {
+        if (i < chars.length) {
+            if (chars[i] >= '0' && chars[i] <= '9') {
                 // no type qualifier, OK
                 return true;
             }
-            if ( chars[i] == 'e' || chars[i] == 'E' ) {
+            if (chars[i] == 'e' || chars[i] == 'E') {
                 // can't have an E at the last byte
                 return false;
             }
-            if ( chars[i] == '.' ) {
-                if ( hasDecPoint || hasExp ) {
+            if (chars[i] == '.') {
+                if (hasDecPoint || hasExp) {
                     // two decimal points or dec in exponent
                     return false;
                 }
                 // single trailing decimal point after non-exponent is ok
                 return foundDigit;
             }
-            if ( !allowSigns
+            if (!allowSigns
                     && (chars[i] == 'd'
                     || chars[i] == 'D'
                     || chars[i] == 'f'
-                    || chars[i] == 'F') ) {
+                    || chars[i] == 'F')) {
                 return foundDigit;
             }
-            if ( chars[i] == 'l'
-                    || chars[i] == 'L' ) {
+            if (chars[i] == 'l'
+                    || chars[i] == 'L') {
                 // not allowing L with an exponent or decimal point
                 return foundDigit && !hasExp && !hasDecPoint;
             }

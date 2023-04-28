@@ -18,7 +18,7 @@ public class PrimBean {
         return intPrim;
     }
 
-    public void setInt( int intPrim ) {
+    public void setInt(int intPrim) {
         this.intPrim = intPrim;
     }
 
@@ -26,7 +26,7 @@ public class PrimBean {
         return doublePrim;
     }
 
-    public void setDouble( double doublePrim ) {
+    public void setDouble(double doublePrim) {
         this.doublePrim = doublePrim;
     }
 
@@ -34,7 +34,7 @@ public class PrimBean {
         return floatPrim;
     }
 
-    public void setFloat( float floatPrim ) {
+    public void setFloat(float floatPrim) {
         this.floatPrim = floatPrim;
     }
 
@@ -42,7 +42,7 @@ public class PrimBean {
         return booleanPrim;
     }
 
-    public void setBoolean( boolean booleanPrim ) {
+    public void setBoolean(boolean booleanPrim) {
         this.booleanPrim = booleanPrim;
     }
 

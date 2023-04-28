@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class NotNullTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void valueIsNotNullTest() {
@@ -20,15 +20,15 @@ public class NotNullTest {
         Violations violations;
         Guard guard = new Guard();
 
-        bean.setInt( 123 );
+        bean.setInt(123);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getInt() )
-                          .constraint( new NotNull() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getInt())
+                .constraint(new NotNull())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.1" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.1").isEmpty());
     }
 
     @Test
@@ -38,17 +38,17 @@ public class NotNullTest {
         Violations violations;
         Guard guard = new Guard();
 
-        bean.setString( null );
+        bean.setString(null);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getString() )
-                          .constraint( new NotNull() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getString())
+                .constraint(new NotNull())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.2" ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.2").size() > 0);
     }
 
 }

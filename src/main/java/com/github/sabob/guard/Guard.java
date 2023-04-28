@@ -16,72 +16,72 @@ public class Guard {
     public Guard() {
     }
 
-    public Guard( String name ) {
-        of( name );
+    public Guard(String name) {
+        of(name);
     }
 
     public GuardContext getContext() {
         return context();
     }
 
-    public Guard of( String name ) {
+    public Guard of(String name) {
 
-        if ( context != null ) {
-            violations.merge( context.getViolations() );
+        if (context != null) {
+            violations.merge(context.getViolations());
         }
 
-        context = new GuardContext( name );
+        context = new GuardContext(name);
         return this;
     }
 
-    public Guard constraint( Constraint constraint ) {
+    public Guard constraint(Constraint constraint) {
         GuardContext clone = context().clone();
 
-        apply( constraint, clone );
+        apply(constraint, clone);
         return this;
     }
 
-    public Guard constraint( Constraint constraint, GuardContext guardContext ) {
-        GuardContext clone = context().merge( guardContext );
+    public Guard constraint(Constraint constraint, GuardContext guardContext) {
+        GuardContext clone = context().merge(guardContext);
 
-        apply( constraint, clone );
+        apply(constraint, clone);
         return this;
     }
 
-    public Guard constraint( Constraint constraint, String message ) {
+    public Guard constraint(Constraint constraint, String message) {
         GuardContext clone = context().clone();
-        clone.setMessage( message );
+        clone.setMessage(message);
 
-        apply( constraint, clone );
+        apply(constraint, clone);
         return this;
     }
 
-    public Guard constraint( Constraint constraint, Object value, String message ) {
+    public Guard constraint(Constraint constraint, Object value, String message) {
         GuardContext clone = context().clone();
-        clone.setValue( value );
-        clone.setMessage( message );
+        clone.setValue(value);
+        clone.setMessage(message);
 
-        apply( constraint, clone );
+        apply(constraint, clone);
         return this;
 
     }
 
     public Guard throwIfInvalid() throws GuardViolationException {
-        if ( invalid() ) {
-            throw new GuardViolationException( getViolations() );
+        if (invalid()) {
+            throw new GuardViolationException(getViolations());
         }
         return this;
     }
 
     protected Guard failFastIfInvalid() throws GuardViolationException {
-        if ( failFast() ) {
+        if (failFast()) {
             throwIfInvalid();
         }
         return this;
     }
 
     public Violations validate() {
-        violations.merge( context().getViolations() );
+        violations.merge(context().getViolations());
         return violations;
     }
 
@@ -89,20 +89,20 @@ public class Guard {
         return getContext().getLatestViolation();
     }
 
-    public Optional<Violation> getLatestViolation( String name ) {
-        return getContext().getLatestViolation( name );
+    public Optional<Violation> getLatestViolation(String name) {
+        return getContext().getLatestViolation(name);
     }
 
     public Violations getViolations() {
         return violations;
     }
 
-    public void setViolations( Violations violations ) {
+    public void setViolations(Violations violations) {
         this.violations = violations;
     }
 
-    public boolean addViolation( Violation violation ) {
-        return getViolations().add( violation );
+    public boolean addViolation(Violation violation) {
+        return getViolations().add(violation);
     }
 
     public boolean valid() {
@@ -117,7 +117,7 @@ public class Guard {
         return failFast;
     }
 
-    public Guard failFast( boolean failFast ) {
+    public Guard failFast(boolean failFast) {
         this.failFast = failFast;
         return this;
     }
@@ -126,8 +126,8 @@ public class Guard {
         return context().getName();
     }
 
-    public Guard name( String name ) {
-        context().setName( name );
+    public Guard name(String name) {
+        context().setName(name);
         return this;
     }
 
@@ -135,8 +135,8 @@ public class Guard {
         return context().getCode();
     }
 
-    public Guard code( String code ) {
-        context().setCode( code );
+    public Guard code(String code) {
+        context().setCode(code);
         return this;
     }
 
@@ -144,8 +144,8 @@ public class Guard {
         return context().getValue();
     }
 
-    public Guard value( Object value ) {
-        context().setValue( value );
+    public Guard value(Object value) {
+        context().setValue(value);
         return this;
     }
 
@@ -153,24 +153,24 @@ public class Guard {
         return context().getMessage();
     }
 
-    public Guard message( String message ) {
-        context().setMessage( message );
+    public Guard message(String message) {
+        context().setMessage(message);
         return this;
     }
 
     public GuardContext context() {
-        if ( context == null ) {
-            throw new IllegalStateException( "No context available. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\") to create a context" );
+        if (context == null) {
+            throw new IllegalStateException("No context available. Usage: new Guard(\"some_name\") or myGuard.of(\"some_name\") to create a context");
         }
         return context;
     }
 
-    protected Guard apply( Constraint constraint, GuardContext ctx ) {
+    protected Guard apply(Constraint constraint, GuardContext ctx) {
 
-        constraint.apply( ctx );
+        constraint.apply(ctx);
         Violations violations = getViolations();
-        violations.merge( ctx.getViolations() );
-        context().violations.merge( ctx.getViolations() );
+        violations.merge(ctx.getViolations());
+        context().violations.merge(ctx.getViolations());
         failFastIfInvalid();
         return this;
     }

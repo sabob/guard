@@ -17,15 +17,15 @@ dependencies {
 }
 
 dependencies {
-    testImplementation  "org.slf4j:slf4j-api:1.7.29"
-    testImplementation  "org.slf4j:slf4j-simple:1.7.29"
+    testImplementation "org.slf4j:slf4j-api:1.7.29"
+    testImplementation "org.slf4j:slf4j-simple:1.7.29"
 }
 
-sourceSets.test.resources.srcDirs = [ "src/test/java", "src/test/resources"]
-sourceSets.test.resources.includes = [ "**/*.*" ]
+sourceSets.test.resources.srcDirs = ["src/test/java", "src/test/resources"]
+sourceSets.test.resources.includes = ["**/*.*"]
 
 task copyLibs(type: Copy) {
-    def libs = configurations.runtimeClasspath  + configurations.testRuntimeClasspath;
+    def libs = configurations.runtimeClasspath + configurations.testRuntimeClasspath;
     into "$projectDir/lib"
     from libs
 }

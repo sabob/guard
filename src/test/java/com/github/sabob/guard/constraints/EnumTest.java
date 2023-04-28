@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class EnumTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void positiveStringTest() {
@@ -22,15 +22,15 @@ public class EnumTest {
         String propertyName = "Enum Property";
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( WeekdayEnum.MONDAY.name() )
-                          .constraint( new EnumOf( WeekdayEnum.class ) )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(WeekdayEnum.MONDAY.name())
+                .constraint(new EnumOf(WeekdayEnum.class))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( propertyName ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList(propertyName).isEmpty());
 
-        LOGGER.info( guard.getViolations().getList().toString() );
+        LOGGER.info(guard.getViolations().getList().toString());
 
     }
 
@@ -42,15 +42,15 @@ public class EnumTest {
         String propertyName = "Enum Property";
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( WeekdayEnum.MONDAY )
-                          .constraint( new EnumOf( WeekdayEnum.class ) )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(WeekdayEnum.MONDAY)
+                .constraint(new EnumOf(WeekdayEnum.class))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( propertyName ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList(propertyName).isEmpty());
 
-        LOGGER.info( guard.getViolations().getList().toString() );
+        LOGGER.info(guard.getViolations().getList().toString());
 
     }
 
@@ -63,18 +63,18 @@ public class EnumTest {
 
         String propertyName = "Enum Property";
 
-        objBean.setString( "foo" );
+        objBean.setString("foo");
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( objBean.getString() )
-                          .constraint( new EnumOf( WeekdayEnum.class ) )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(objBean.getString())
+                .constraint(new EnumOf(WeekdayEnum.class))
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( propertyName ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList(propertyName).size() > 0);
 
-        LOGGER.info( guard.getViolations().getList().toString() );
+        LOGGER.info(guard.getViolations().getList().toString());
 
     }
 
@@ -86,15 +86,15 @@ public class EnumTest {
         String propertyName = "Enum Property";
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( MonthEnum.JANUARY )
-                          .constraint( new EnumOf( WeekdayEnum.class ) )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(MonthEnum.JANUARY)
+                .constraint(new EnumOf(WeekdayEnum.class))
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( propertyName ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList(propertyName).size() > 0);
 
-        LOGGER.info( guard.getViolations().getList().toString() );
+        LOGGER.info(guard.getViolations().getList().toString());
     }
 
 }

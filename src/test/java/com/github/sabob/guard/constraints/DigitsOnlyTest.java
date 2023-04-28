@@ -11,42 +11,42 @@ import com.github.sabob.guard.violation.Violations;
 
 public class DigitsOnlyTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void ensureDigitsOnly() {
 
         PrimBean bean = new PrimBean();
-        bean.setInt( 125 );
+        bean.setInt(125);
 
         Guard guard = new Guard();
 
-        Assertions.assertThrows( IllegalStateException.class, () -> {
+        Assertions.assertThrows(IllegalStateException.class, () -> {
 
-            Violations violations = guard.of( "test.1" )
-                                         .value( bean.getInt() )
-                                         .constraint( new DigitsOnly() )
-                                         .validate();
+            Violations violations = guard.of("test.1")
+                    .value(bean.getInt())
+                    .constraint(new DigitsOnly())
+                    .validate();
 
-        } );
+        });
     }
 
     @Test
     public void testNull() {
 
         ObjectBean bean = new ObjectBean();
-        bean.setString( null );
+        bean.setString(null);
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getString() )
-                          .constraint( new DigitsOnly() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getString())
+                .constraint(new DigitsOnly())
+                .validate();
 
-        System.out.println( violations.getList( "test.1" ) );
-        Assertions.assertTrue( violations.isValid() );
+        System.out.println(violations.getList("test.1"));
+        Assertions.assertTrue(violations.isValid());
     }
 
 }

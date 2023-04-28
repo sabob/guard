@@ -10,7 +10,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class NullOnlyTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void valueIsNotNull() {
@@ -19,17 +19,17 @@ public class NullOnlyTest {
         Guard guard = new Guard();
         Violations violations;
 
-        bean.setString( "abc" );
+        bean.setString("abc");
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getString() )
-                          .constraint( new NullOnly() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getString())
+                .constraint(new NullOnly())
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.1" ).size() == 1 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.1").size() == 1);
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -40,15 +40,15 @@ public class NullOnlyTest {
         Guard guard = new Guard();
         Violations violations;
 
-        bean.setString( null );
+        bean.setString(null);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getString() )
-                          .constraint( new NullOnly() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getString())
+                .constraint(new NullOnly())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( "test.2" ) );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid("test.2"));
     }
 
 }

@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class MaxTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     // Negative Test: Set value  > Max
     @Test
@@ -21,17 +21,17 @@ public class MaxTest {
         Guard guard = new Guard();
 
         PrimBean bean = new PrimBean();
-        bean.setInt( 21 );
+        bean.setInt(21);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getInt() )
-                          .constraint( new Max( 20 ) )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getInt())
+                .constraint(new Max(20))
+                .validate();
 
-        Assertions.assertFalse( violations.isValid() );
-        Assertions.assertTrue( violations.isInvalid( "test.1" ) );
+        Assertions.assertFalse(violations.isValid());
+        Assertions.assertTrue(violations.isInvalid("test.1"));
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -44,15 +44,15 @@ public class MaxTest {
 
         PrimBean bean = new PrimBean();
 
-        bean.setInt( 20 );
+        bean.setInt(20);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getInt() )
-                          .constraint( new Max( 20 ) )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getInt())
+                .constraint(new Max(20))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( "test.2" ) );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid("test.2"));
     }
 
     // Positive Test: Set value <  Max.
@@ -64,15 +64,15 @@ public class MaxTest {
 
         PrimBean bean = new PrimBean();
 
-        bean.setInt( 19 );
+        bean.setInt(19);
 
-        violations = guard.of( "test.3" )
-                          .value( bean.getInt() )
-                          .constraint( new Max( 20 ) )
-                          .validate();
+        violations = guard.of("test.3")
+                .value(bean.getInt())
+                .constraint(new Max(20))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertFalse( violations.getList( "test.3" ).size() > 0 );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertFalse(violations.getList("test.3").size() > 0);
 
     }
 
@@ -84,15 +84,15 @@ public class MaxTest {
 
         ObjectBean bean = new ObjectBean();
 
-        bean.setString( null );
+        bean.setString(null);
 
-        violations = guard.of( "test.4" )
-                          .value( bean.getString() )
-                          .constraint( new Max( 20 ) )
-                          .validate();
+        violations = guard.of("test.4")
+                .value(bean.getString())
+                .constraint(new Max(20))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.4" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.4").isEmpty());
     }
 
 }

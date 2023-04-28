@@ -9,44 +9,45 @@ import com.github.sabob.guard.violation.Violation;
 
 public class Min implements Constraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "min.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("min.message");
 
     private int min;
 
-    public Min( int min ) {
+    public Min(int min) {
         this.min = min;
     }
 
     @Override
-    public void apply( GuardContext guardContext ) {
+    public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
 
-        boolean valid = isValid( value );
+        boolean valid = isValid(value);
 
-        if ( !valid ) {
+        if (!valid) {
 
-            String name = StringUtils.capitalize( guardContext.getName() );
-            Violation violation = GuardUtils.toViolationWithTemplateMessage( guardContext, messageTemplate, name, min );
-            guardContext.addViolation( violation );
+            String name = StringUtils.capitalize(guardContext.getName());
+            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, min);
+            guardContext.addViolation(violation);
         }
 
     }
 
     @Override
-    public boolean isValid( Object value ) {
+    public boolean isValid(Object value) {
 
-        if ( value == null ) {
+        if (value == null) {
             return true;
         }
-        if ( !(value instanceof Number) ) {
-            throw new IllegalStateException( value.getClass() + " is not a valid type for the " + this.getClass().getSimpleName() +
-                    " constraint. " + this.getClass().getSimpleName() + " can only be applied to numbers." );
+        if (!(value instanceof Number)) {
+            throw new IllegalStateException(value.getClass() + " is not a valid type for the " + this.getClass()
+                    .getSimpleName() +
+                    " constraint. " + this.getClass().getSimpleName() + " can only be applied to numbers.");
         }
 
-        Number number = ( Number ) value;
+        Number number = (Number) value;
 
-        boolean valid = NumberUtils.isGreaterThanOrEqual( number, min );
+        boolean valid = NumberUtils.isGreaterThanOrEqual(number, min);
         return valid;
     }
 

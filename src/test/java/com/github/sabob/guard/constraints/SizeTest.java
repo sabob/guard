@@ -14,7 +14,7 @@ import java.util.List;
 
 public class SizeTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void maxStringTest() {
@@ -23,15 +23,15 @@ public class SizeTest {
         Guard guard = new Guard();
         Violations violations;
 
-        objectBean.setString( "FooBarBaz" );
+        objectBean.setString("FooBarBaz");
 
-        violations = guard.of( "maxStringTest" )
-                          .value( objectBean.getString() )
-                          .constraint( new Size( 0, 2 ) )
-                          .validate();
+        violations = guard.of("maxStringTest")
+                .value(objectBean.getString())
+                .constraint(new Size(0, 2))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isInvalid() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
+        Assertions.assertTrue(violations.isInvalid());
 
     }
 
@@ -45,17 +45,17 @@ public class SizeTest {
         List<Person> list = new ArrayList();
         int setSize = 2;
 
-        for ( int i = 0; i < setSize; i++ ) {
-            list.add( new Person() );
+        for (int i = 0; i < setSize; i++) {
+            list.add(new Person());
         }
 
-        violations = guard.of( "minListLengthTest" )
-                          .value( list )
-                          .constraint( new Size( 5, 10 ) )
-                          .validate();
+        violations = guard.of("minListLengthTest")
+                .value(list)
+                .constraint(new Size(5, 10))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isInvalid() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
+        Assertions.assertTrue(violations.isInvalid());
 
     }
 
@@ -65,13 +65,13 @@ public class SizeTest {
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "nullTest" )
-                          .value( null )
-                          .constraint( new Size( 10, 15 ) )
-                          .validate();
+        violations = guard.of("nullTest")
+                .value(null)
+                .constraint(new Size(10, 15))
+                .validate();
 
-        LOGGER.info( "Result {}", guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isValid() );
+        LOGGER.info("Result {}", guard.getViolations().getList());
+        Assertions.assertTrue(violations.isValid());
 
     }
 

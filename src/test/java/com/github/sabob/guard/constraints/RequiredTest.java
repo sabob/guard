@@ -14,26 +14,26 @@ import java.util.List;
 
 public class RequiredTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void requiredValidTest() {
 
         Person person = new Person();
 
-        person.setLastname( "Foo" );
+        person.setLastname("Foo");
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "lastname" )
-                          .value( person.getLastname() )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("lastname")
+                .value(person.getLastname())
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "lastname" ) );
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( "lastname" ) );
+        LOGGER.info("Result {}", violations.getList("lastname"));
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid("lastname"));
 
     }
 
@@ -42,19 +42,19 @@ public class RequiredTest {
 
         Person person = new Person();
 
-        person.setLastname( null );
+        person.setLastname(null);
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "lastname" )
-                          .value( person.getLastname() )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("lastname")
+                .value(person.getLastname())
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "lastname" ) );
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.isInvalid( "lastname" ) );
+        LOGGER.info("Result {}", violations.getList("lastname"));
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.isInvalid("lastname"));
 
     }
 
@@ -63,19 +63,19 @@ public class RequiredTest {
 
         Person person = new Person();
 
-        person.setLastname( "  " );
+        person.setLastname("  ");
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "lastname" )
-                          .value( person.getLastname() )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("lastname")
+                .value(person.getLastname())
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "lastname" ) );
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.isInvalid( "lastname" ) );
+        LOGGER.info("Result {}", violations.getList("lastname"));
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.isInvalid("lastname"));
 
     }
 
@@ -84,19 +84,19 @@ public class RequiredTest {
 
         Person person = new Person();
 
-        person.setLastname( "" );
+        person.setLastname("");
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "lastname" )
-                          .value( person.getLastname() )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("lastname")
+                .value(person.getLastname())
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "lastname" ) );
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.isInvalid( "lastname" ) );
+        LOGGER.info("Result {}", violations.getList("lastname"));
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.isInvalid("lastname"));
     }
 
     @Test
@@ -104,19 +104,19 @@ public class RequiredTest {
 
         Person person = new Person();
 
-        person.setLastname( "a" );
+        person.setLastname("a");
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "lastname" )
-                          .value( person.getLastname() )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("lastname")
+                .value(person.getLastname())
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "lastname" ) );
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( "lastname" ) );
+        LOGGER.info("Result {}", violations.getList("lastname"));
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid("lastname"));
 
     }
 
@@ -128,14 +128,14 @@ public class RequiredTest {
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "list" )
-                          .value( value )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("list")
+                .value(value)
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "list" ) );
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.isInvalid( "list" ) );
+        LOGGER.info("Result {}", violations.getList("list"));
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.isInvalid("list"));
 
     }
 
@@ -143,19 +143,19 @@ public class RequiredTest {
     public void requiredValidListTest() {
 
         Collection value = new ArrayList<>();
-        value.add( "test" );
+        value.add("test");
 
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "list" )
-                          .value( value )
-                          .constraint( new Required() )
-                          .validate();
+        violations = guard.of("list")
+                .value(value)
+                .constraint(new Required())
+                .validate();
 
-        LOGGER.info( "Result {}", violations.getList( "list" ) );
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( "list" ) );
+        LOGGER.info("Result {}", violations.getList("list"));
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid("list"));
 
     }
 }

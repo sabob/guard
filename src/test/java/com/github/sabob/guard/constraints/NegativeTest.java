@@ -10,7 +10,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class NegativeTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void valueIsPositive() {
@@ -19,17 +19,17 @@ public class NegativeTest {
         Guard guard = new Guard();
         Violations violations;
 
-        bean.setDouble( 0.12d );
+        bean.setDouble(0.12d);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getDouble() )
-                          .constraint( new Negative() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getDouble())
+                .constraint(new Negative())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( !violations.getList( "test.1" ).isEmpty() );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(!violations.getList("test.1").isEmpty());
 
     }
 
@@ -40,15 +40,15 @@ public class NegativeTest {
         Guard guard = new Guard();
         Violations violations;
 
-        bean.setDouble( -0.00001d );
+        bean.setDouble(-0.00001d);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getDouble() )
-                          .constraint( new Negative() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getDouble())
+                .constraint(new Negative())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.2" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.2").isEmpty());
     }
 
 }

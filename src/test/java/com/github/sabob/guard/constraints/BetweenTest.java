@@ -10,57 +10,57 @@ import com.github.sabob.guard.violation.Violations;
 
 public class BetweenTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void testBetweenSuccess() {
 
         Person person = new Person();
-        person.setAge( 10 );
+        person.setAge(10);
 
         Guard guard = new Guard();
 
-        Violations violations = guard.of( "age" )
-                                     .value( person.getAge() )
-                                     .constraint( new NotNull() )
-                                     .constraint( new Between( 10, 20 ) )
-                                     .validate();
+        Violations violations = guard.of("age")
+                .value(person.getAge())
+                .constraint(new NotNull())
+                .constraint(new Between(10, 20))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid( "age" ) );
+        Assertions.assertTrue(violations.isValid("age"));
 
-        violations = guard.of( "age" )
-                          .value( person.getAge() )
-                          .constraint( new NotNull() )
-                          .constraint( new Between( 1, 10 ) )
-                          .validate();
+        violations = guard.of("age")
+                .value(person.getAge())
+                .constraint(new NotNull())
+                .constraint(new Between(1, 10))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid( "age" ) );
+        Assertions.assertTrue(violations.isValid("age"));
 
-        violations = guard.of( "age" )
-                          .value( person.getAge() )
-                          .constraint( new NotNull() )
-                          .constraint( new Between( 11, 20 ) )
-                          .validate();
+        violations = guard.of("age")
+                .value(person.getAge())
+                .constraint(new NotNull())
+                .constraint(new Between(11, 20))
+                .validate();
 
-        Assertions.assertFalse( violations.isValid( "age" ) );
+        Assertions.assertFalse(violations.isValid("age"));
     }
 
     @Test
     public void toJsonTest() throws Exception {
 
         Person person = new Person();
-        person.setFirstname( "" );
+        person.setFirstname("");
 
         Guard guard = new Guard();
 
-        Violations violations = guard.of( "firstname" )
-                                     .code( "FN" )
-                                     .value( person.getFirstname() )
-                                     .constraint( new NotNull() )
-                                     .constraint( new Required() )
-                                     .validate();
+        Violations violations = guard.of("firstname")
+                .code("FN")
+                .value(person.getFirstname())
+                .constraint(new NotNull())
+                .constraint(new Required())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
-        System.out.println( guard.getContext() );
+        System.out.println(guard.getViolations().getList());
+        System.out.println(guard.getContext());
     }
 }

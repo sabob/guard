@@ -49,9 +49,9 @@ public class RSAIDNumberParser {
      * @param pivotYear
      * @return DateTimeFormatter
      */
-    public static final DateTimeFormatter getTwoYearFormatter( Year pivotYear ) {
+    public static final DateTimeFormatter getTwoYearFormatter(Year pivotYear) {
         return new DateTimeFormatterBuilder()
-                .appendValueReduced( ChronoField.YEAR, 2, 2, pivotYear.getValue() )
+                .appendValueReduced(ChronoField.YEAR, 2, 2, pivotYear.getValue())
                 .toFormatter();
     }
 
@@ -59,23 +59,23 @@ public class RSAIDNumberParser {
      * Breaks down id number into its meaningful parts
      */
     private void breakDownIDNumber() {
-        String birthDate = idNumber.substring( 0, 6 );
+        String birthDate = idNumber.substring(0, 6);
 
-        if ( pivotYear == null ) {
-            pivotYear = Year.of( Year.now().getValue() - 100 );// Assume ID belongs to someone not older than 100 years
+        if (pivotYear == null) {
+            pivotYear = Year.of(Year.now().getValue() - 100);// Assume ID belongs to someone not older than 100 years
         }
 
-        int year = Year.parse( birthDate.substring( 0, 2 ), RSAIDNumberParser.getTwoYearFormatter( pivotYear ) ).getValue();
+        int year = Year.parse(birthDate.substring(0, 2), RSAIDNumberParser.getTwoYearFormatter(pivotYear)).getValue();
 
         this.dateOfBirth = LocalDate.of(
                 year,
-                Month.of( Integer.parseInt( birthDate.substring( 2, 4 ) ) ),
-                Integer.parseInt( birthDate.substring( 4 ) )
+                Month.of(Integer.parseInt(birthDate.substring(2, 4))),
+                Integer.parseInt(birthDate.substring(4))
         );
 
-        this.genderNum = Integer.parseInt( idNumber.substring( 6, 10 ) );
-        this.citizenshipNum = Integer.parseInt( idNumber.substring( 10, 11 ) );
-        this.checkBit = Integer.parseInt( idNumber.substring( 12, 13 ) );
+        this.genderNum = Integer.parseInt(idNumber.substring(6, 10));
+        this.citizenshipNum = Integer.parseInt(idNumber.substring(10, 11));
+        this.checkBit = Integer.parseInt(idNumber.substring(12, 13));
     }
 
     /**
@@ -85,8 +85,8 @@ public class RSAIDNumberParser {
      * @return IDNumberData
      * @throws Exception throws Exception if invalid length is provided.
      */
-    public RSAIDNumberData parse( String idNumber ) throws InvalidRSAIDLengthException {
-        if ( idNumber.length() != 13 ) {
+    public RSAIDNumberData parse(String idNumber) throws InvalidRSAIDLengthException {
+        if (idNumber.length() != 13) {
             throw new InvalidRSAIDLengthException();
         }
 
@@ -109,8 +109,8 @@ public class RSAIDNumberParser {
      * @return int
      */
     private int calculateCheckBit() {
-        String withoutChecksum = idNumber.substring( 0, idNumber.length() - 1 );
-        return Luhn.generate( withoutChecksum );
+        String withoutChecksum = idNumber.substring(0, idNumber.length() - 1);
+        return Luhn.generate(withoutChecksum);
     }
 
     /**
@@ -124,7 +124,7 @@ public class RSAIDNumberParser {
      * @param pivotYear
      * @return IDNumberParser
      */
-    public RSAIDNumberParser setPivotYear( Year pivotYear ) {
+    public RSAIDNumberParser setPivotYear(Year pivotYear) {
         this.pivotYear = pivotYear;
 
         return this;

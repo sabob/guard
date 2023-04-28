@@ -19,7 +19,7 @@ public class DateBean {
         return calendar;
     }
 
-    public void setCalendar( Calendar calendar ) {
+    public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
 
@@ -27,7 +27,7 @@ public class DateBean {
         return localDate;
     }
 
-    public void setLocalDate( LocalDate localDate ) {
+    public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
 
@@ -35,7 +35,7 @@ public class DateBean {
         return date;
     }
 
-    public void setDate( Date date ) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -43,7 +43,7 @@ public class DateBean {
         return localDateTime;
     }
 
-    public void setLocalDateTime( LocalDateTime localDateTime ) {
+    public void setLocalDateTime(LocalDateTime localDateTime) {
         this.localDateTime = localDateTime;
     }
 }

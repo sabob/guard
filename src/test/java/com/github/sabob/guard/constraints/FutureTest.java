@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 public class FutureTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void dateSetInFutureTest() {
@@ -22,17 +22,17 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDate( LocalDate.of( 2054, 1, 8 ) );
+        bean.setLocalDate(LocalDate.of(2054, 1, 8));
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getLocalDate() )
-                          .constraint( new Future() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getLocalDate())
+                .constraint(new Future())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.1" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.1").isEmpty());
 
     }
 
@@ -43,17 +43,17 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDateTime( LocalDateTime.of( 2024, 1, 8, 8, 00 ) );
+        bean.setLocalDateTime(LocalDateTime.of(2024, 1, 8, 8, 00));
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getLocalDateTime() )
-                          .constraint( new Future() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getLocalDateTime())
+                .constraint(new Future())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.2" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.2").isEmpty());
 
     }
 
@@ -64,17 +64,17 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDate( LocalDate.of( 2020, 1, 8 ) );
+        bean.setLocalDate(LocalDate.of(2020, 1, 8));
 
-        violations = guard.of( "test.3" )
-                          .value( bean.getLocalDate() )
-                          .constraint( new Future() )
-                          .validate();
+        violations = guard.of("test.3")
+                .value(bean.getLocalDate())
+                .constraint(new Future())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.3" ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.3").size() > 0);
 
     }
 
@@ -85,17 +85,17 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDateTime( LocalDateTime.of( 2020, 1, 8, 8, 00 ) );
+        bean.setLocalDateTime(LocalDateTime.of(2020, 1, 8, 8, 00));
 
-        violations = guard.of( "test.4" )
-                          .value( bean.getLocalDateTime() )
-                          .constraint( new Future() )
-                          .validate();
+        violations = guard.of("test.4")
+                .value(bean.getLocalDateTime())
+                .constraint(new Future())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.4" ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.4").size() > 0);
 
     }
 

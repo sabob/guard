@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 public class PastOrPresentTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void dateSetInFutureTest() {
@@ -22,17 +22,17 @@ public class PastOrPresentTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDate( LocalDate.of( 2054, 1, 8 ) );
+        bean.setLocalDate(LocalDate.of(2054, 1, 8));
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getLocalDate() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getLocalDate())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.1" ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.1").size() > 0);
 
     }
 
@@ -43,17 +43,17 @@ public class PastOrPresentTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDateTime( LocalDateTime.of( 2054, 1, 8, 8, 00 ) );
+        bean.setLocalDateTime(LocalDateTime.of(2054, 1, 8, 8, 00));
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getLocalDateTime() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getLocalDateTime())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.2" ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.2").size() > 0);
 
     }
 
@@ -64,17 +64,17 @@ public class PastOrPresentTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDate( LocalDate.of( 2020, 1, 8 ) );
+        bean.setLocalDate(LocalDate.of(2020, 1, 8));
 
-        violations = guard.of( "test.3" )
-                          .value( bean.getLocalDate() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.3")
+                .value(bean.getLocalDate())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.3" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.3").isEmpty());
 
     }
 
@@ -85,17 +85,17 @@ public class PastOrPresentTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDateTime( LocalDateTime.of( 2020, 1, 8, 8, 00 ) );
+        bean.setLocalDateTime(LocalDateTime.of(2020, 1, 8, 8, 00));
 
-        violations = guard.of( "test.4" )
-                          .value( bean.getLocalDateTime() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.4")
+                .value(bean.getLocalDateTime())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.4" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.4").isEmpty());
 
     }
 
@@ -105,15 +105,15 @@ public class PastOrPresentTest {
         Violations violations;
         Guard guard = new Guard();
 
-        violations = guard.of( "test.5" )
-                          .value( LocalDate.now() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.5")
+                .value(LocalDate.now())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.5" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.5").isEmpty());
 
     }
 
@@ -123,15 +123,15 @@ public class PastOrPresentTest {
         Violations violations;
         Guard guard = new Guard();
 
-        violations = guard.of( "test.6" )
-                          .value( LocalDateTime.now() )
-                          .constraint( new PastOrPresent() )
-                          .validate();
+        violations = guard.of("test.6")
+                .value(LocalDateTime.now())
+                .constraint(new PastOrPresent())
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.6" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.6").isEmpty());
 
     }
 

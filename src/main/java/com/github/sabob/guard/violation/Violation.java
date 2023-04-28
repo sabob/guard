@@ -13,16 +13,16 @@ public class Violation {
     public Violation() {
     }
 
-    public Violation( String name ) {
+    public Violation(String name) {
         this.name = name;
     }
 
-    public Violation( String name, String message ) {
+    public Violation(String name, String message) {
         this.name = name;
         this.message = message;
     }
 
-    public Violation( String name, String message, String code ) {
+    public Violation(String name, String message, String code) {
         this.name = name;
         this.message = message;
         this.code = code;
@@ -32,7 +32,7 @@ public class Violation {
         return name;
     }
 
-    public void setName( String name ) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -40,7 +40,7 @@ public class Violation {
         return message;
     }
 
-    public void setMessage( String message ) {
+    public void setMessage(String message) {
         this.message = message;
     }
 
@@ -48,7 +48,7 @@ public class Violation {
         return code;
     }
 
-    public void setCode( String code ) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -56,7 +56,7 @@ public class Violation {
         return value;
     }
 
-    public void setValue( Object value ) {
+    public void setValue(Object value) {
         this.value = value;
     }
 

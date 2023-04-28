@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class InternationalPhoneNumberTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void notAPhoneNumberTest() {
@@ -23,18 +23,18 @@ public class InternationalPhoneNumberTest {
 
         String propertyName = "test.1";
 
-        objBean.setString( "foo" );
+        objBean.setString("foo");
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( objBean.getString() )
-                          .constraint( new InternationalPhoneNumber() )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(objBean.getString())
+                .constraint(new InternationalPhoneNumber())
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( propertyName ).size() > 0 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList(propertyName).size() > 0);
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -48,16 +48,16 @@ public class InternationalPhoneNumberTest {
 
         String propertyName = "test.2";
 
-        objBean.setString( "+2712345" );
+        objBean.setString("+2712345");
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( objBean.getString() )
-                          .constraint( new InternationalPhoneNumber() )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(objBean.getString())
+                .constraint(new InternationalPhoneNumber())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( propertyName ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList(propertyName).isEmpty());
     }
 
 }

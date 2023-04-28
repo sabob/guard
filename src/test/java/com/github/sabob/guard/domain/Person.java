@@ -20,7 +20,7 @@ public class Person {
         return firstname;
     }
 
-    public void setFirstname( String firstname ) {
+    public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
 
@@ -28,7 +28,7 @@ public class Person {
         return lastname;
     }
 
-    public void setLastname( String lastname ) {
+    public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
@@ -36,7 +36,7 @@ public class Person {
         return idNumber;
     }
 
-    public void setIdNumber( String idNumber ) {
+    public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
     }
 
@@ -44,7 +44,7 @@ public class Person {
         return age;
     }
 
-    public void setAge( Integer age ) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -52,7 +52,7 @@ public class Person {
         return male;
     }
 
-    public void setMale( boolean male ) {
+    public void setMale(boolean male) {
         this.male = male;
     }
 
@@ -60,7 +60,7 @@ public class Person {
         return dob;
     }
 
-    public void setDob( Date dob ) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

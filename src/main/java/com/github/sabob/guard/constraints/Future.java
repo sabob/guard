@@ -15,25 +15,25 @@ import java.time.LocalDateTime;
  */
 public class Future extends AbstractDateTimeConstraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "future.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("future.message");
 
     @Override
-    protected boolean isValidDateTime( LocalDateTime localDateTime ) {
-        boolean validFuture = localDateTime.isAfter( LocalDateTime.now() );
+    protected boolean isValidDateTime(LocalDateTime localDateTime) {
+        boolean validFuture = localDateTime.isAfter(LocalDateTime.now());
         return validFuture;
     }
 
     @Override
-    protected boolean isValidDate( LocalDateTime localDateTime ) {
-        LocalDate localDate = DateUtils.toLocalDate( localDateTime );
-        boolean validFuture = localDate.isAfter( LocalDate.now() );
+    protected boolean isValidDate(LocalDateTime localDateTime) {
+        LocalDate localDate = DateUtils.toLocalDate(localDateTime);
+        boolean validFuture = localDate.isAfter(LocalDate.now());
         return validFuture;
     }
 
     @Override
-    protected void addViolation( GuardContext context ) {
-        String name = StringUtils.capitalize( context.getName() );
-        Violation violation = GuardUtils.toViolationWithTemplateMessage( context, messageTemplate, name );
-        context.addViolation( violation );
+    protected void addViolation(GuardContext context) {
+        String name = StringUtils.capitalize(context.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(context, messageTemplate, name);
+        context.addViolation(violation);
     }
 }

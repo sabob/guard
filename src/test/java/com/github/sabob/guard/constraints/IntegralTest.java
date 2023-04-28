@@ -10,7 +10,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class IntegralTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void testMax() {
@@ -19,16 +19,16 @@ public class IntegralTest {
         Violations violations;
 
         PrimBean bean = new PrimBean();
-        bean.setFloat( 100.0000001f );
+        bean.setFloat(100.0000001f);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getFloat() )
-                          .constraint( new IntegralLength( 0, 2 ) )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getFloat())
+                .constraint(new IntegralLength(0, 2))
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
+        Assertions.assertTrue(violations.isInvalid());
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -39,15 +39,15 @@ public class IntegralTest {
         Violations violations;
 
         PrimBean bean = new PrimBean();
-        bean.setFloat( 1.1f );
+        bean.setFloat(1.1f);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getFloat() )
-                          .constraint( new IntegralLength( 5, 0 ) )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getFloat())
+                .constraint(new IntegralLength(5, 0))
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        System.out.println( guard.getViolations().getList() );
+        Assertions.assertTrue(violations.isInvalid());
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -57,13 +57,13 @@ public class IntegralTest {
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of( "test.3" )
-                          .value( null )
-                          .constraint( new IntegralLength( 10, 15 ) )
-                          .validate();
+        violations = guard.of("test.3")
+                .value(null)
+                .constraint(new IntegralLength(10, 15))
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
-        Assertions.assertTrue( violations.isValid() );
+        System.out.println(guard.getViolations().getList());
+        Assertions.assertTrue(violations.isValid());
 
     }
 

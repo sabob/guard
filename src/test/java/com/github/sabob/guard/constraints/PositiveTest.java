@@ -10,7 +10,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class PositiveTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     PrimBean bean = new PrimBean();
 
@@ -22,17 +22,17 @@ public class PositiveTest {
     @Test
     public void valueIsNegativeTest() {
 
-        bean.setDouble( -1.123d );
+        bean.setDouble(-1.123d);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getInt() )
-                          .constraint( new Positive() )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getInt())
+                .constraint(new Positive())
+                .validate();
 
-        Assertions.assertTrue( violations.getList( "test.1" ).size() == 1 );
-        Assertions.assertTrue( violations.isInvalid() );
+        Assertions.assertTrue(violations.getList("test.1").size() == 1);
+        Assertions.assertTrue(violations.isInvalid());
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -40,15 +40,15 @@ public class PositiveTest {
     @Test
     public void valueIsPositive() {
 
-        bean.setDouble( 0.1235d );
+        bean.setDouble(0.1235d);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getDouble() )
-                          .constraint( new Positive() )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getDouble())
+                .constraint(new Positive())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.2" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.2").isEmpty());
     }
 
 }

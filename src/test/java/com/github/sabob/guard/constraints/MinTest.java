@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class MinTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     PrimBean bean = new PrimBean();
 
@@ -23,17 +23,17 @@ public class MinTest {
     @Test
     public void setValueLessThanMinTest() {
 
-        bean.setInt( 20 );
+        bean.setInt(20);
 
-        violations = guard.of( "test.1" )
-                          .value( bean.getInt() )
-                          .constraint( new Min( 21 ) )
-                          .validate();
+        violations = guard.of("test.1")
+                .value(bean.getInt())
+                .constraint(new Min(21))
+                .validate();
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( "test.1" ).size() == 1 );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList("test.1").size() == 1);
 
     }
 
@@ -41,29 +41,29 @@ public class MinTest {
     @Test
     public void setValueEqualsToMin() {
 
-        bean.setInt( 21 );
+        bean.setInt(21);
 
-        violations = guard.of( "test.2" )
-                          .value( bean.getInt() )
-                          .constraint( new Min( 21 ) )
-                          .validate();
+        violations = guard.of("test.2")
+                .value(bean.getInt())
+                .constraint(new Min(21))
+                .validate();
 
-        Assertions.assertTrue( violations.getList( "test.2" ).isEmpty() );
+        Assertions.assertTrue(violations.getList("test.2").isEmpty());
     }
 
     // Positive Test: Set value > Min
     @Test
     public void setValueGreaterThanMin() {
 
-        bean.setInt( 22 );
+        bean.setInt(22);
 
-        violations = guard.of( "test.3" )
-                          .value( bean.getInt() )
-                          .constraint( new Min( 21 ) )
-                          .validate();
+        violations = guard.of("test.3")
+                .value(bean.getInt())
+                .constraint(new Min(21))
+                .validate();
 
-        Assertions.assertTrue( violations.getList( "test.3" ).isEmpty() );
-        Assertions.assertTrue( violations.isValid() );
+        Assertions.assertTrue(violations.getList("test.3").isEmpty());
+        Assertions.assertTrue(violations.isValid());
 
     }
 
@@ -75,15 +75,15 @@ public class MinTest {
 
         ObjectBean bean = new ObjectBean();
 
-        bean.setString( null );
+        bean.setString(null);
 
-        violations = guard.of( "test.4" )
-                          .value( bean.getString() )
-                          .constraint( new Min( 20 ) )
-                          .validate();
+        violations = guard.of("test.4")
+                .value(bean.getString())
+                .constraint(new Min(20))
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.getList( "test.4" ).isEmpty() );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.getList("test.4").isEmpty());
     }
 
 }

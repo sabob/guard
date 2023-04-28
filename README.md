@@ -1,13 +1,14 @@
 # guard
+
 Guard is a simple and easy-to-use, general purpose, validation library for Java.
 
 The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
 
 Constraints are applied to the values of the object and all violations of the constraint are added
-to a list. Once all the constraints are applied, you can retrieve the list of violations and 
-then throw an exception containing this list or branch your code depending on a violation.  
+to a list. Once all the constraints are applied, you can retrieve the list of violations and
+then throw an exception containing this list or branch your code depending on a violation.
 
-You can set Guard to fail-fast if a constraint is violated, meaning it will throw an exception 
+You can set Guard to fail-fast if a constraint is violated, meaning it will throw an exception
 immediately. Or run leniently and wait until all constraints have been applied before retrieving
 the list of violations.
 
@@ -36,11 +37,12 @@ There are other Java validation libraries available, but I found
 them too sophisticated for my needs.
 
 Guard is complimentary to Bean Validation and is often used on the boundary of the application,
-eg. REST endpoints,  where data is added or updated.
+eg. REST endpoints, where data is added or updated.
 Guard uses the familiar concepts of Constraints and Violations
 and ships with basic validations such is NotNull, Empty, Size, Max etc.
 
-## Highlights 
+## Highlights
+
 * Easy to learn.
 * Extendable. Implement the Constraint interface to create a custom
 * validator
@@ -50,14 +52,16 @@ and ships with basic validations such is NotNull, Empty, Size, Max etc.
 * Constraints can be composed to create new constraints.
 
 ## Basic Usage
+
 The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
 
-A Guard must have a **name**. 
+A Guard must have a **name**.
 
 The name should be unique and all violations that occur while applying constraints, will be
 added under this name.
 
 For example:
+
 ```java
 Guard guard = new Guard("some_name")
 .value("") // empty value will violate the Required constraint
@@ -77,8 +81,7 @@ Assertions.assertTrue( violations.getList( FIRSTNAME ).size() == 1 );
 Assertions.assertTrue( violations.getList( LASTNAME ).size() == 1 );
 ```
 
-
-will be used as the name of the Violations that are 
+will be used as the name of the Violations that are
 created when constraints are applied to the values of the object
 that is guarded.
 
@@ -101,6 +104,7 @@ System.out.println("message: " +  violation.getMessage());
 This can be read as "Create a Guard for the firstname Field"
 
 ### Fluid API
+
 The above example can be written a bit more fluently as most
 methods return the guard instance:
 
@@ -112,6 +116,7 @@ Violations violations = new Guard("firstname")
 ```
 
 ### Multiple Constraints
+
 We can apply more than one Constraint on a value:
 
 ```java
@@ -124,6 +129,7 @@ Violations violations = new Guard("firstname")
 ```
 
 ### Multiple Values
+
 The same Guard instance can be applied to different values
 for the same Object or Field.
 Just change the **value** and apply another Constraint.
@@ -138,6 +144,7 @@ Violations violations = new Guard("firstname")
 ```
 
 ### Multiple Names
+
 The same Guard instance can be applied to different Names
 , generally when we want to validate a different Field or
 Object.
@@ -159,14 +166,16 @@ Violations violations = new Guard("firstname")
 ```
 
 ### Context
+
 When a Guard instance is created a GuardContext is created
 for the name of that Guard.
 
-A GuardContext has a name, a value and a 
-list of violations that was created as constraints were applied 
+A GuardContext has a name, a value and a
+list of violations that was created as constraints were applied
 against the current context.
 
 ### Context Switching
+
 New GuardContexts are created when the **name** is changed
 through the **of()** method.
 
@@ -186,8 +195,8 @@ of("age")
  Assertions.assertTrue( violations.getList("lastname").size() == 1 );
  Assertions.assertTrue( violations.getList("age").size() == 1 );
 ```
- 
-All new constraints will be applied against the current 
+
+All new constraints will be applied against the current
 GuardContext.
 
 NOTE: A Guard instance keeps a list of all Violations of all
@@ -222,15 +231,18 @@ Violations violations = new Guard( "client phone number" )
         Assertions.assertTrue( violations.isInvalid() );
         Assertions.assertTrue( violations.getList().size() == 2 );
 ```
+
 This will result in a Violation for each Constraint.
 
 ### Composition
-As Java is object-oriented, we can assemble more complex constraints from 
+
+As Java is object-oriented, we can assemble more complex constraints from
 others.
 
 The AtLeast constraint is a good example of this approach.
 
 ### isValid() / isInvalid() utility methods
+
 The constraint interface exposes the __isValid( Object value )__  and
 __isInvalid( Object value )__ methods that can be used as utility methods
 to validate values.

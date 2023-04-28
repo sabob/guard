@@ -9,37 +9,37 @@ import com.github.sabob.guard.violation.Violation;
 
 public class NumberOnly implements Constraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "number.only.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("number.only.message");
 
     public NumberOnly() {
     }
 
     @Override
-    public void apply( GuardContext guardContext ) {
+    public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
 
-        boolean valid = isValid( value );
+        boolean valid = isValid(value);
 
-        String name = StringUtils.capitalize( guardContext.getName() );
-        Violation violation = GuardUtils.toViolationWithTemplateMessage( guardContext, messageTemplate, name );
-        guardContext.addViolation( violation );
+        String name = StringUtils.capitalize(guardContext.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        guardContext.addViolation(violation);
     }
 
     @Override
-    public boolean isValid( Object value ) {
+    public boolean isValid(Object value) {
 
-        if ( value == null ) {
+        if (value == null) {
             return true;
         }
 
-        if ( (value instanceof Number) ) {
+        if ((value instanceof Number)) {
             return true;
         }
 
-        String strValue = GuardUtils.toString( Number.class.getSimpleName(), value );
+        String strValue = GuardUtils.toString(Number.class.getSimpleName(), value);
 
-        if ( NumberUtils.isCreatable( strValue ) ) {
+        if (NumberUtils.isCreatable(strValue)) {
             return true;
         }
         return false;

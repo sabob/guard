@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class ViolationTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger( ViolationTest.class );
+    private static final Logger LOGGER = LoggerFactory.getLogger(ViolationTest.class);
 
     static String FIRSTNAME = "firstname";
 
@@ -22,34 +22,34 @@ public class ViolationTest {
     public void testEachNameMustHaveOwnViolations() {
 
         Person person = new Person();
-        person.setFirstname( "  " );
-        person.setIdNumber( "123" );
+        person.setFirstname("  ");
+        person.setIdNumber("123");
 
-        Guard guard = new Guard( FIRSTNAME )
-                .value( null )
-                .constraint( new Required() );
+        Guard guard = new Guard(FIRSTNAME)
+                .value(null)
+                .constraint(new Required());
 
-        Violations violations = guard.of( LASTNAME )
-                                     .value( null )
-                                     .constraint( new Required() )
-                                     .validate();
+        Violations violations = guard.of(LASTNAME)
+                .value(null)
+                .constraint(new Required())
+                .validate();
 
-        System.out.println(violations.getList( FIRSTNAME ));
-        System.out.println(violations.getList( LASTNAME ));
+        System.out.println(violations.getList(FIRSTNAME));
+        System.out.println(violations.getList(LASTNAME));
 
-        Assertions.assertTrue( violations.getList( FIRSTNAME ).size() == 1 );
-        Assertions.assertTrue( violations.getList( LASTNAME ).size() == 1 );
+        Assertions.assertTrue(violations.getList(FIRSTNAME).size() == 1);
+        Assertions.assertTrue(violations.getList(LASTNAME).size() == 1);
     }
 
     @Test
-    public void  testLatestViolation() {
+    public void testLatestViolation() {
 
-        Guard guard = new Guard( FIRSTNAME );
+        Guard guard = new Guard(FIRSTNAME);
 
         Violation violation = guard
-                .value( null )
-                .constraint( new NotNull() )
-                .constraint( new Required() ).getLatestViolation().orElse( null );
+                .value(null)
+                .constraint(new NotNull())
+                .constraint(new Required()).getLatestViolation().orElse(null);
 
         System.out.println("Latest Violation: " + violation);
         System.out.println("Latest " + FIRSTNAME + " Violation: " + guard.getLatestViolation(FIRSTNAME));

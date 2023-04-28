@@ -16,7 +16,7 @@ public class ObjectBean {
         return stringObj;
     }
 
-    public void setString( String stringObj ) {
+    public void setString(String stringObj) {
         this.stringObj = stringObj;
     }
 
@@ -24,7 +24,7 @@ public class ObjectBean {
         return integerObj;
     }
 
-    public void setInteger( Integer integerObj ) {
+    public void setInteger(Integer integerObj) {
         this.integerObj = integerObj;
     }
 
@@ -32,7 +32,7 @@ public class ObjectBean {
         return booleanObj;
     }
 
-    public void setBoolean( Boolean booleanObj ) {
+    public void setBoolean(Boolean booleanObj) {
         this.booleanObj = booleanObj;
     }
 
@@ -40,7 +40,7 @@ public class ObjectBean {
         return doubleObj;
     }
 
-    public void setDoubleObj( Double doubleObj ) {
+    public void setDoubleObj(Double doubleObj) {
         this.doubleObj = doubleObj;
     }
 
@@ -48,7 +48,7 @@ public class ObjectBean {
         return floatObj;
     }
 
-    public void setFloatObj( Float floatObj ) {
+    public void setFloatObj(Float floatObj) {
         this.floatObj = floatObj;
     }
 }

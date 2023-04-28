@@ -17,14 +17,14 @@ public abstract class AbstractDateTimeConstraint implements Constraint {
     protected boolean includeTime = false;
 
     @Override
-    public void apply( GuardContext guardContext ) {
+    public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
 
-        boolean valid = isValid( value );
+        boolean valid = isValid(value);
 
-        if ( !valid ) {
-            addViolation( guardContext );
+        if (!valid) {
+            addViolation(guardContext);
         }
 
     }
@@ -35,37 +35,37 @@ public abstract class AbstractDateTimeConstraint implements Constraint {
      * @param includeTime true if the time must be compared as well
      * @return Past or Past including the Present to enable fluent api
      */
-    public AbstractDateTimeConstraint includeTime( boolean includeTime ) {
+    public AbstractDateTimeConstraint includeTime(boolean includeTime) {
         this.includeTime = includeTime;
         return this;
     }
 
     @Override
-    public boolean isValid( Object value ) {
+    public boolean isValid(Object value) {
 
-        if ( value == null ) {
+        if (value == null) {
             return true;
         }
 
-        Optional<LocalDateTime> optional = DateUtils.toLocalDateTime( value );
+        Optional<LocalDateTime> optional = DateUtils.toLocalDateTime(value);
 
-        LocalDateTime localDateTime = GuardUtils.toLocalDateTime( AbstractDateTimeConstraint.class.getSimpleName(), value, optional );
+        LocalDateTime localDateTime = GuardUtils.toLocalDateTime(AbstractDateTimeConstraint.class.getSimpleName(), value, optional);
 
         boolean valid;
 
-        if ( includeTime ) {
-            valid = isValidDateTime( localDateTime );
+        if (includeTime) {
+            valid = isValidDateTime(localDateTime);
 
         } else {
-            valid = isValidDate( localDateTime );
+            valid = isValidDate(localDateTime);
         }
 
         return valid;
     }
 
-    protected abstract boolean isValidDateTime( LocalDateTime localDateTime );
+    protected abstract boolean isValidDateTime(LocalDateTime localDateTime);
 
-    protected abstract boolean isValidDate( LocalDateTime localDateTime );
+    protected abstract boolean isValidDate(LocalDateTime localDateTime);
 
-    protected abstract void addViolation( GuardContext context );
+    protected abstract void addViolation(GuardContext context);
 }

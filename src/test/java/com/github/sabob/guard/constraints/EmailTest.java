@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class EmailTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger( this.getClass() );
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void negativeTest() {
@@ -23,18 +23,18 @@ public class EmailTest {
 
         String propertyName = "Email property";
 
-        objBean.setString( "foo" );
+        objBean.setString("foo");
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( objBean.getString() )
-                          .constraint( new Email() )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(objBean.getString())
+                .constraint(new Email())
+                .validate();
 
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.isInvalid( propertyName ) );
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.isInvalid(propertyName));
 
-        System.out.println( guard.getViolations().getList() );
+        System.out.println(guard.getViolations().getList());
 
     }
 
@@ -48,16 +48,16 @@ public class EmailTest {
 
         String propertyName = "Email property";
 
-        objBean.setString( "baa123@gmail.com" );
+        objBean.setString("baa123@gmail.com");
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( objBean.getString() )
-                          .constraint( new Email() )
-                          .validate();
+        violations = guard.of(propertyName)
+                .value(objBean.getString())
+                .constraint(new Email())
+                .validate();
 
-        Assertions.assertTrue( violations.isValid() );
-        Assertions.assertTrue( violations.isValid( propertyName ) );
+        Assertions.assertTrue(violations.isValid());
+        Assertions.assertTrue(violations.isValid(propertyName));
     }
 
     @Test
@@ -68,31 +68,31 @@ public class EmailTest {
         String propertyName = "Email property";
 
         Violations violations;
-        violations = guard.of( propertyName )
-                          .value( "baa123@gmail" )
-                          .constraint( new Email() )
-                          .validate();
-        Assertions.assertTrue( violations.isInvalid() );
-        Assertions.assertTrue( violations.getList( propertyName ).size() == 1 );
+        violations = guard.of(propertyName)
+                .value("baa123@gmail")
+                .constraint(new Email())
+                .validate();
+        Assertions.assertTrue(violations.isInvalid());
+        Assertions.assertTrue(violations.getList(propertyName).size() == 1);
 
         guard.getViolations().clear();
 
-        violations = guard.value( "baa123@gmail" )
-                          .constraint( new Email() )
-                          .validate();
+        violations = guard.value("baa123@gmail")
+                .constraint(new Email())
+                .validate();
 
-        boolean valid = violations.getList( propertyName ).size() == 1;
+        boolean valid = violations.getList(propertyName).size() == 1;
 
-        Assertions.assertTrue( valid );
+        Assertions.assertTrue(valid);
 
         guard.getViolations().clear();
 
-        violations = guard.value( "123" )
-                          .constraint( new Email() )
-                          .validate();
-        Assertions.assertTrue( violations.getList( propertyName ).size() == 1 );
+        violations = guard.value("123")
+                .constraint(new Email())
+                .validate();
+        Assertions.assertTrue(violations.getList(propertyName).size() == 1);
 
-        System.out.println( violations.getList( propertyName ) );
+        System.out.println(violations.getList(propertyName));
     }
 }
 

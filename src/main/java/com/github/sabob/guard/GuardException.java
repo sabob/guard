@@ -10,25 +10,25 @@ public class GuardException extends RuntimeException {
     public GuardException() {
     }
 
-    public GuardException( Violations violations ) {
+    public GuardException(Violations violations) {
         this.violations = violations;
     }
 
-    public GuardException( String message ) {
-        super( message );
+    public GuardException(String message) {
+        super(message);
     }
 
-    public GuardException( String message, Violations violations ) {
-        super( message );
+    public GuardException(String message, Violations violations) {
+        super(message);
         this.violations = violations;
     }
 
-    public GuardException( String message, Throwable cause ) {
-        super( message, cause );
+    public GuardException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public GuardException( String message, Throwable cause, Violations violations ) {
-        super( message, cause );
+    public GuardException(String message, Throwable cause, Violations violations) {
+        super(message, cause);
         this.violations = violations;
     }
 
@@ -36,11 +36,11 @@ public class GuardException extends RuntimeException {
         return violations;
     }
 
-    public void setViolations( Violations violations ) {
+    public void setViolations(Violations violations) {
         this.violations = violations;
     }
 
-    public void addViolation( Violation violation ) {
-        getViolations().add( violation );
+    public void addViolation(Violation violation) {
+        getViolations().add(violation);
     }
 }

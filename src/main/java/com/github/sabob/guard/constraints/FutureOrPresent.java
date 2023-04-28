@@ -15,39 +15,39 @@ import java.time.LocalDateTime;
  */
 public class FutureOrPresent extends AbstractDateTimeConstraint {
 
-    protected static final String messageTemplate = GuardUtils.getProperties().getProperty( "future.or.present.message" );
+    protected static final String messageTemplate = GuardUtils.getProperties().getProperty("future.or.present.message");
 
     @Override
-    protected boolean isValidDateTime( LocalDateTime localDateTime ) {
+    protected boolean isValidDateTime(LocalDateTime localDateTime) {
 
-        boolean validFuture = localDateTime.isAfter( LocalDateTime.now() );
-        if ( validFuture ) return true;
+        boolean validFuture = localDateTime.isAfter(LocalDateTime.now());
+        if (validFuture) return true;
 
-        boolean validPresent = localDateTime.isEqual( LocalDateTime.now() );
-        if ( validPresent ) return true;
+        boolean validPresent = localDateTime.isEqual(LocalDateTime.now());
+        if (validPresent) return true;
 
         return false;
 
     }
 
     @Override
-    protected boolean isValidDate( LocalDateTime localDateTime ) {
+    protected boolean isValidDate(LocalDateTime localDateTime) {
 
-        LocalDate localDate = DateUtils.toLocalDate( localDateTime );
+        LocalDate localDate = DateUtils.toLocalDate(localDateTime);
 
-        boolean validFuture = localDate.isAfter( LocalDate.now() );
-        if ( validFuture ) return true;
+        boolean validFuture = localDate.isAfter(LocalDate.now());
+        if (validFuture) return true;
 
-        boolean validPresent = localDate.isEqual( LocalDate.now() );
-        if ( validPresent ) return true;
+        boolean validPresent = localDate.isEqual(LocalDate.now());
+        if (validPresent) return true;
 
         return false;
     }
 
     @Override
-    protected void addViolation( GuardContext context ) {
-        String name = StringUtils.capitalize( context.getName() );
-        Violation violation = GuardUtils.toViolationWithTemplateMessage( context, messageTemplate, name );
-        context.addViolation( violation );
+    protected void addViolation(GuardContext context) {
+        String name = StringUtils.capitalize(context.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(context, messageTemplate, name);
+        context.addViolation(violation);
     }
 }
