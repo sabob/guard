@@ -31,7 +31,15 @@ public class NotEmpty implements Constraint {
 
     @Override
     public boolean isValid(Object value) {
-        Size sizeConstraint = new Size().min(1);
-        return sizeConstraint.isValid(value);
+
+        try {
+            Size sizeConstraint = new Size().min(1);
+            return sizeConstraint.isValid(value);
+
+        } catch (IllegalStateException ex) {
+            String newMsg = ex.getMessage();
+            newMsg = newMsg.replace(Size.class.getSimpleName(), NotEmpty.class.getSimpleName());
+            throw new IllegalStateException(newMsg);
+        }
     }
 }

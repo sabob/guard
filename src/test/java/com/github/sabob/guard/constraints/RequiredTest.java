@@ -158,4 +158,22 @@ public class RequiredTest {
         Assertions.assertTrue(violations.isValid("list"));
 
     }
+
+    @Test
+    public void testExceptionsHasRequiredInErrorMessage() {
+
+        try {
+            new Guard("list")
+                    .value(new Person())
+                    .constraint(new Required())
+                    .validate();
+
+            Assertions.fail("Exception should have been thrown above");
+
+        } catch (IllegalStateException ex) {
+            Assertions.assertTrue(ex.getMessage().contains(" Required "));
+            Assertions.assertFalse(ex.getMessage().contains(" Size "));
+            Assertions.assertFalse(ex.getMessage().contains(" NotEmpty "));
+        }
+    }
 }

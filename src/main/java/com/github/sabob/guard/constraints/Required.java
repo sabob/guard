@@ -27,26 +27,34 @@ public class Required implements Constraint {
     @Override
     public boolean isValid(Object value) {
 
-        NotNull notNull = new NotNull();
-        if (notNull.isInvalid(value)) {
+        try {
+
+            NotNull notNull = new NotNull();
+            if (notNull.isInvalid(value)) {
+                return false;
+            }
+
+            if (value instanceof String) {
+                // For strings, we use NotBlank
+                NotBlank notBlank = new NotBlank();
+                if (notBlank.isValid(value)) {
+                    return true;
+                }
+            } else {
+
+                // For everything else, we use NotEmpty
+                NotEmpty notEmpty = new NotEmpty();
+                if (notEmpty.isValid(value)) {
+                    return true;
+                }
+            }
+
             return false;
+
+        } catch (IllegalStateException ex) {
+            String newMsg = ex.getMessage();
+            newMsg = newMsg.replace(NotEmpty.class.getSimpleName(), Required.class.getSimpleName());
+            throw new IllegalStateException(newMsg);
         }
-
-        if (value instanceof String) {
-            // For strings, we use NotBlank
-            NotBlank notBlank = new NotBlank();
-            if (notBlank.isValid(value)) {
-                return true;
-            }
-        } else {
-
-            // For everything else, we use NotEmpty
-            NotEmpty notEmpty = new NotEmpty();
-            if (notEmpty.isValid(value)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

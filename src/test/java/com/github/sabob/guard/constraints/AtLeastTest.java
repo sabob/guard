@@ -53,4 +53,26 @@ public class AtLeastTest {
 
         Assertions.assertTrue(thrown.getViolations().getList().size() == 1);
     }
+
+    @Test
+    public void testExceptionsHasNotEmptyInErrorMessage() {
+
+        Constraint emailOrPhoneIsRequired = new Required();
+
+        AtLeast atLeastOneContact = new AtLeast(1, emailOrPhoneIsRequired, "");
+        atLeastOneContact.values(new Person());
+
+        try {
+            new Guard("list")
+                    .constraint(atLeastOneContact)
+                    .validate();
+
+            Assertions.fail("Exception should have been thrown above");
+
+        } catch (IllegalStateException ex) {
+            // The underlying Required exception should be thrown and specify the actual Constraint name, not it's inner constraint
+            Assertions.assertTrue(ex.getMessage().contains(" Required "));
+            Assertions.assertFalse(ex.getMessage().contains(" NotEmpty "));
+        }
+    }
 }
