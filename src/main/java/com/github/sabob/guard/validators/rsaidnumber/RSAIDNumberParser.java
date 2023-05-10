@@ -1,5 +1,6 @@
 package com.github.sabob.guard.validators.rsaidnumber;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
@@ -57,8 +58,9 @@ public class RSAIDNumberParser {
 
     /**
      * Breaks down id number into its meaningful parts
+     * @throws DateTimeException if the birth date contains invalid values eg a dateOfMonth of 35
      */
-    private void breakDownIDNumber() {
+    private void breakDownIDNumber() throws DateTimeException {
         String birthDate = idNumber.substring(0, 6);
 
         if (pivotYear == null) {
@@ -85,7 +87,7 @@ public class RSAIDNumberParser {
      * @return IDNumberData
      * @throws Exception throws Exception if invalid length is provided.
      */
-    public RSAIDNumberData parse(String idNumber) throws InvalidRSAIDLengthException {
+    public RSAIDNumberData parse(String idNumber) throws InvalidRSAIDLengthException, DateTimeException {
         if (idNumber.length() != 13) {
             throw new InvalidRSAIDLengthException();
         }

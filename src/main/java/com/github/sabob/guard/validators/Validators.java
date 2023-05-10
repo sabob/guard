@@ -7,6 +7,7 @@ import com.github.sabob.guard.validators.rsaidnumber.RSAIDNumberParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.Year;
 import java.util.Date;
 import java.util.EnumSet;
@@ -109,7 +110,7 @@ public class Validators {
         return m.matches();
     }
 
-    public static RSAIDNumberData parseRSAIDNumber(String idNumber, int pivotYear) throws InvalidRSAIDLengthException {
+    public static RSAIDNumberData parseRSAIDNumber(String idNumber, int pivotYear) throws InvalidRSAIDLengthException, DateTimeException {
         RSAIDNumberParser idNumberParser = new RSAIDNumberParser();
         idNumberParser.setPivotYear(Year.of(pivotYear));
         RSAIDNumberData idNumberData = idNumberParser.parse(idNumber);
