@@ -27,9 +27,11 @@ public class Pattern implements Constraint {
 
         boolean valid = isValid(value);
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, regularExpression);
-        guardContext.addViolation(violation);
+        if (!valid) {
+            String name = StringUtils.capitalize(guardContext.getName());
+            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, regularExpression);
+            guardContext.addViolation(violation);
+        }
     }
 
     @Override
@@ -39,7 +41,7 @@ public class Pattern implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString(Pattern.class.getSimpleName(), value);
+        String strValue = GuardUtils.ensureValueIsString(Pattern.class.getSimpleName(), value);
 
         java.util.regex.Matcher m = pattern.matcher(strValue);
 
