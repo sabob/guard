@@ -37,7 +37,7 @@ public class NumberOnly implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString(Number.class.getSimpleName(), value);
+        String strValue = GuardUtils.ensureValueIsString(Number.class.getSimpleName(), value);
 
         if (NumberUtils.isCreatable(strValue)) {
             return true;

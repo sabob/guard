@@ -70,7 +70,7 @@ public class EnumOf implements Constraint {
             valid = Validators.isValidEnumValue(en, enumClass);
 
         } else {
-            String strValue = GuardUtils.toString(EnumOf.class.getSimpleName(), value);
+            String strValue = GuardUtils.ensureValueIsString(EnumOf.class.getSimpleName(), value);
             valid = Validators.isValidEnumValue(strValue, enumClass);
         }
 

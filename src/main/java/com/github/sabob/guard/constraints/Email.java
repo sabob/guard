@@ -37,7 +37,7 @@ public class Email implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString(Email.class.getSimpleName(), value);
+        String strValue = GuardUtils.ensureValueIsString(Email.class.getSimpleName(), value);
 
         boolean valid = Validators.isEmail(strValue);
         return valid;

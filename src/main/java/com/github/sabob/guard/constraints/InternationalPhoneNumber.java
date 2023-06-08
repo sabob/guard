@@ -37,7 +37,7 @@ public class InternationalPhoneNumber implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString(InternationalPhoneNumber.class.getSimpleName(), value);
+        String strValue = GuardUtils.ensureValueIsString(InternationalPhoneNumber.class.getSimpleName(), value);
 
         boolean valid = Validators.isPhoneNumber(strValue);
         return valid;

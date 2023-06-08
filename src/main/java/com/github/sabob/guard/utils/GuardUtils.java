@@ -115,7 +115,7 @@ public class GuardUtils {
         return optional.get();
     }
 
-    public static String toString(String constraintName, Object value) {
+    public static String ensureValueIsString(String constraintName, Object value) {
 
         if (value == null) {
             throw new IllegalArgumentException("value is required!");

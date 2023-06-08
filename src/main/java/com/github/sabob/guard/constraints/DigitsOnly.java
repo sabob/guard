@@ -34,7 +34,7 @@ public class DigitsOnly implements Constraint {
             return true;
         }
 
-        String strValue = GuardUtils.toString(DigitsOnly.class.getSimpleName(), value);
+        String strValue = GuardUtils.ensureValueIsString(DigitsOnly.class.getSimpleName(), value);
         boolean valid = Validators.isDigitsOnly(strValue);
 
         return valid;
