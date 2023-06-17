@@ -35,10 +35,7 @@ public class EnumOf implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
-
-        if (valid) {
-            return;
-        }
+        if (valid) return;
 
         StringJoiner joiner = new StringJoiner(", ");
         EnumSet<?> enumSet = EnumSet.allOf(enumClass);

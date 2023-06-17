@@ -46,12 +46,11 @@ public class AtLeast implements Constraint {
     public void apply(GuardContext guardContext) {
 
         boolean valid = isValid(values);
+        if (valid) return;
 
-        if (!valid) {
-            Violation violation = guardContext.toViolation();
-            violation.setMessage(message);
-            guardContext.getViolations().add(violation);
-        }
+        Violation violation = guardContext.toViolation();
+        violation.setMessage(message);
+        guardContext.getViolations().add(violation);
     }
 
     @Override

@@ -24,13 +24,14 @@ public class Between implements Constraint {
     public void apply(GuardContext guardContext) {
 
         Object value = guardContext.getValue();
-        boolean invalid = isInvalid(value);
 
-        if (invalid) {
-            String name = StringUtils.capitalize(guardContext.getName());
-            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, min, max);
-            guardContext.addViolation(violation);
-        }
+        boolean valid = isValid(value);
+        if (valid) return;
+
+
+        String name = StringUtils.capitalize(guardContext.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, min, max);
+        guardContext.addViolation(violation);
     }
 
     @Override

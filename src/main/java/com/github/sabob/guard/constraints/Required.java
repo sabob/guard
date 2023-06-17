@@ -14,14 +14,12 @@ public class Required implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
+        if (valid) return;
 
-        if (!valid) {
-
-            String name = StringUtils.capitalize(guardContext.getName());
-            String messageTemplate = GuardUtils.getProperties().getProperty("required.message");
-            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
-            guardContext.addViolation(violation);
-        }
+        String name = StringUtils.capitalize(guardContext.getName());
+        String messageTemplate = GuardUtils.getProperties().getProperty("required.message");
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        guardContext.addViolation(violation);
     }
 
     @Override

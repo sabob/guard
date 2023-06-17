@@ -22,11 +22,9 @@ public abstract class AbstractDateTimeConstraint implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
+        if (valid) return;
 
-        if (!valid) {
-            addViolation(guardContext);
-        }
-
+        addViolation(guardContext);
     }
 
     /**

@@ -21,12 +21,11 @@ public class NegativeOrZero implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
+        if (valid) return;
 
-        if (!valid) {
-            String name = StringUtils.capitalize(guardContext.getName());
-            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
-            guardContext.addViolation(violation);
-        }
+        String name = StringUtils.capitalize(guardContext.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        guardContext.addViolation(violation);
     }
 
     @Override

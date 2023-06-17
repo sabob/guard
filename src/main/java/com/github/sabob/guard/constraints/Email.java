@@ -20,10 +20,7 @@ public class Email implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
-
-        if (valid) {
-            return;
-        }
+        if (valid) return;
 
         String name = StringUtils.capitalize(guardContext.getName());
         Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);

@@ -26,12 +26,11 @@ public class Pattern implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
+        if (valid) return;
 
-        if (!valid) {
-            String name = StringUtils.capitalize(guardContext.getName());
-            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, regularExpression);
-            guardContext.addViolation(violation);
-        }
+        String name = StringUtils.capitalize(guardContext.getName());
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, regularExpression);
+        guardContext.addViolation(violation);
     }
 
     @Override
