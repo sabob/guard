@@ -3,6 +3,7 @@ package com.github.sabob.guard;
 import com.github.sabob.guard.violation.Violation;
 import com.github.sabob.guard.violation.Violations;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Guard {
@@ -11,9 +12,10 @@ public class Guard {
 
     protected GuardContext context = null;
 
-    Violations violations = new Violations();
+    protected Violations violations = new Violations();
 
     public Guard() {
+        context = new GuardContext();
     }
 
     public Guard(String name) {
@@ -26,11 +28,15 @@ public class Guard {
 
     public Guard of(String name) {
 
+        GuardContext newContext = new GuardContext(name);
+
         if (context != null) {
+            newContext.path(context.getPath());
             violations.merge(context.getViolations());
         }
 
-        context = new GuardContext(name);
+        context = newContext;
+
         return this;
     }
 
@@ -69,6 +75,19 @@ public class Guard {
     public Guard throwIfInvalid() throws GuardViolationException {
         if (invalid()) {
             throw new GuardViolationException(getViolations());
+        }
+        return this;
+    }
+
+    public Guard throwIfContextInvalid() throws GuardViolationException {
+        GuardContext ctx = getContext();
+        ctx.throwIfInvalid();
+        return this;
+    }
+
+    public Guard throwIfContextInvalid(String name) throws GuardViolationException {
+        if (violations.isInvalid(name)) {
+            throw new GuardViolationException(getViolations().copy(name));
         }
         return this;
     }
@@ -128,6 +147,15 @@ public class Guard {
 
     public Guard name(String name) {
         context().setName(name);
+        return this;
+    }
+
+    public String path() {
+        return context().getPath();
+    }
+
+    public Guard path(String path) {
+        context().setPath(path);
         return this;
     }
 

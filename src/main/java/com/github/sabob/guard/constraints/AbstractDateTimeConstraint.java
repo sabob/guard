@@ -3,14 +3,17 @@ package com.github.sabob.guard.constraints;
 import com.github.sabob.guard.Constraint;
 import com.github.sabob.guard.GuardContext;
 import com.github.sabob.guard.utils.DateUtils;
-import com.github.sabob.guard.utils.GuardUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Optional;
 
 /**
  * Abstract validator for date and time.
- * Supported types are Date, Calendar, LocalDate and LocalDateTime.
+ *
+ * Supported types are java.util.Date, java.sql.Date, Calendar, LocalDate and LocalDateTime. Other data types aren't
+ * validated and isValid() will return true.
  */
 public abstract class AbstractDateTimeConstraint implements Constraint {
 
@@ -41,13 +44,18 @@ public abstract class AbstractDateTimeConstraint implements Constraint {
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
         }
 
         Optional<LocalDateTime> optional = DateUtils.toLocalDateTime(value);
 
-        LocalDateTime localDateTime = GuardUtils.toLocalDateTime(AbstractDateTimeConstraint.class.getSimpleName(), value, optional);
+        if (!optional.isPresent()) {
+            // Skip the validation because only dates eg Date, Calendar, LocalDateTime etc are supported
+            return true;
+        }
+
+        LocalDateTime localDateTime = optional.get();
 
         boolean valid;
 
@@ -61,9 +69,23 @@ public abstract class AbstractDateTimeConstraint implements Constraint {
         return valid;
     }
 
+    public boolean supported(Object value) {
+
+        if (value instanceof java.util.Date
+                || value instanceof java.sql.Date
+                || value instanceof Calendar
+                || value instanceof LocalDate
+                || value instanceof LocalDateTime) {
+            return true;
+        }
+
+        return false;
+
+    }
+
     protected abstract boolean isValidDateTime(LocalDateTime localDateTime);
 
     protected abstract boolean isValidDate(LocalDateTime localDateTime);
 
-    protected abstract void addViolation(GuardContext context);
+    protected abstract void addViolation(GuardContext guardContext);
 }

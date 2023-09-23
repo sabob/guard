@@ -97,22 +97,13 @@ public class GuardUtils {
         for (Violation violation : violationList) {
             BasicViolationMessage message = new BasicViolationMessage();
             message.setName(violation.getName());
+            message.setPath(violation.getPath());
             message.setMessage(violation.getMessage());
             message.setCode(violation.getCode());
             messages.add(message);
         }
 
         return messages;
-    }
-
-    public static LocalDateTime toLocalDateTime(String constraintName, Object value, Optional<LocalDateTime> optional) {
-
-        if (!optional.isPresent()) {
-            throw new IllegalStateException(constraintName + " constraint can only be applied to Date, Calendar, LocalDate and LocalDateTime. " +
-                    "The type of the given value is: " + value.getClass());
-        }
-
-        return optional.get();
     }
 
     public static String ensureValueIsString(String constraintName, Object value) {
@@ -125,7 +116,7 @@ public class GuardUtils {
             throw new IllegalStateException(constraintName + " constraint can only be applied to String.class. The type of the given value is: " + value.getClass());
         }
 
-        return String.valueOf(value);
+        return value.toString();
     }
 
     public static int getIterableSize(Object value) {

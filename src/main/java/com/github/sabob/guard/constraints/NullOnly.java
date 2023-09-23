@@ -6,7 +6,6 @@ import com.github.sabob.guard.utils.StringUtils;
 import com.github.sabob.guard.utils.GuardUtils;
 import com.github.sabob.guard.violation.Violation;
 
-//null.message=%s must be null!
 public class NullOnly implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("null.message");
@@ -19,8 +18,8 @@ public class NullOnly implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 

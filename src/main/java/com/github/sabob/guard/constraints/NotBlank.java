@@ -7,7 +7,12 @@ import com.github.sabob.guard.utils.GuardUtils;
 import com.github.sabob.guard.validators.Validators;
 import com.github.sabob.guard.violation.Violation;
 
-//The value of the value or values inside collection must not be empty or contain only whitespace characters.
+/**
+ ** The value must not be empty or contain only whitespace characters.
+ *
+ * Supported types are any CharSequence (String).
+ * Other data types aren't validated and isValid() will return true.
+ */
 public class NotBlank implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("not.blank.message");
@@ -23,24 +28,26 @@ public class NotBlank implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
         }
 
-        if (value instanceof String) {
-            return Validators.isNotBlank(value.toString());
-        }
+        return Validators.isNotBlank(value.toString());
+    }
 
-        throw new IllegalStateException(value.getClass() + " is not a valid type for the " + getClass().getSimpleName() + " constraint. " +
-                this.getClass().getSimpleName() + " can only be applied to Strings.");
+    public boolean supported(Object value) {
+        if (value instanceof CharSequence) {
+            return true;
+        }
+        return false;
     }
 }
 

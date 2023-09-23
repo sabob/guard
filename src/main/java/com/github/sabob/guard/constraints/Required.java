@@ -6,6 +6,12 @@ import com.github.sabob.guard.utils.GuardUtils;
 import com.github.sabob.guard.utils.StringUtils;
 import com.github.sabob.guard.violation.Violation;
 
+/**
+ * Validates that the value is not be null, blank or empty.
+ * <p>
+ * Supported types are null, CharSequence (String), Maps, Arrays and Collections.
+ * Other data types aren't validated and isValid() will return true.
+ */
 public class Required implements Constraint {
 
     @Override
@@ -16,43 +22,35 @@ public class Required implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
+        String label = StringUtils.messageLabel(guardContext);
         String messageTemplate = GuardUtils.getProperties().getProperty("required.message");
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        try {
-
-            NotNull notNull = new NotNull();
-            if (notNull.isInvalid(value)) {
-                return false;
-            }
-
-            if (value instanceof String) {
-                // For strings, we use NotBlank
-                NotBlank notBlank = new NotBlank();
-                if (notBlank.isValid(value)) {
-                    return true;
-                }
-            } else {
-
-                // For everything else, we use NotEmpty
-                NotEmpty notEmpty = new NotEmpty();
-                if (notEmpty.isValid(value)) {
-                    return true;
-                }
-            }
-
+        NotNull notNull = new NotNull();
+        if (notNull.isInvalid(value)) {
             return false;
-
-        } catch (IllegalStateException ex) {
-            String newMsg = ex.getMessage();
-            newMsg = newMsg.replace(NotEmpty.class.getSimpleName(), Required.class.getSimpleName());
-            throw new IllegalStateException(newMsg);
         }
+
+        if (value instanceof CharSequence) {
+            // For strings, we use NotBlank
+            NotBlank notBlank = new NotBlank();
+            if (notBlank.isValid(value)) {
+                return true;
+            }
+        } else {
+
+            // For everything else, we use NotEmpty
+            NotEmpty notEmpty = new NotEmpty();
+            if (notEmpty.isValid(value)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

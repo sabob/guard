@@ -10,6 +10,8 @@ public class PrimBean {
 
     private float floatPrim;
 
+    private String string;
+
     private final double nanD = Double.NaN;
 
     private final float nanF = Float.NaN;
@@ -52,5 +54,13 @@ public class PrimBean {
 
     public float getNanF() {
         return nanF;
+    }
+
+    public String getString() {
+        return string;
+    }
+
+    public void setString(String string) {
+        this.string = string;
     }
 }

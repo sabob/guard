@@ -59,7 +59,7 @@ public class AtLeast implements Constraint {
         if (constraint == null) {
             String simpleName = AtLeast.class.getSimpleName();
             throw new IllegalStateException("The " + simpleName + " constraint is not set. Usage: " +
-                    simpleName + ".constraint( new NotBlank() ); ");
+                    simpleName + ".constraint( new Required() ); ");
         }
 
         List values = GuardUtils.toList(value);
@@ -73,11 +73,13 @@ public class AtLeast implements Constraint {
             if (valid) {
                 validCount++;
 
-            } else {
-                if (atLeast == 0) {
-                    return false;
-                }
             }
+//            else {
+//                // Exit early once the first value is invalid at least one value must be valid
+//                if (atLeast == 0) {
+//                    return false;
+//                }
+//            }
         }
 
         boolean atLeastValid = isAtLeastValid(validCount);

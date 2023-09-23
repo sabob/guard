@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 /**
  * A digital validator that applies to the integral values and validate that the digit element of the integral is
  * lower than or equal to the digit specify in the parameter.
+ *
+ * Supported types are Number.class
+ * Other data types aren't validated and isValid() will return true.
  */
 public class IntegralLength extends AbstractNumericalBetweenConstraint {
 
@@ -81,5 +84,11 @@ public class IntegralLength extends AbstractNumericalBetweenConstraint {
         return length;
     }
 
+    public boolean supported(Object value) {
+        if (value instanceof Number) {
+            return true;
+        }
+        return false;
+    }
 }
 

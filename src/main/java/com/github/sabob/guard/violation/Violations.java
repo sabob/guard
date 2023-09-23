@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Violations {
 
-    protected Set<String> uniqueGuard = new HashSet();
+    protected Set<String> violationsIdTrackingSet = new HashSet();
 
     protected List<Violation> violationList = new ArrayList();
 
@@ -38,11 +38,14 @@ public class Violations {
             throw new IllegalArgumentException("violation cannot be null!");
         }
 
-        String uniqueId = getUniqueId(violation);
-        if (uniqueGuard.contains(uniqueId)) {
+        // Check if we have already added the violation
+        String validationId = getUniqueId(violation);
+        if (violationsIdTrackingSet.contains(validationId)) {
             return false;
         }
-        uniqueGuard.add(uniqueId);
+
+        // Add the validationId so we don't add it again
+        violationsIdTrackingSet.add(validationId);
 
         String name = violation.getName();
 
@@ -102,6 +105,22 @@ public class Violations {
 
     public void clear() {
         getList().clear();
+    }
+
+    public Violations copy() {
+        Violations copy = new Violations();
+        copy.violationsIdTrackingSet = new HashSet<>(violationsIdTrackingSet);
+        copy.violationList = new ArrayList<>(getList());
+        copy.violationListByName = new HashMap<>(violationListByName);
+        return copy;
+    }
+
+    public Violations copy( String name ) {
+        Violations copy = new Violations();
+        copy.violationsIdTrackingSet = new HashSet<>(violationsIdTrackingSet);
+        copy.violationList = new ArrayList<>(getList(name));
+        copy.violationListByName = new HashMap<>(violationListByName);
+        return copy;
     }
 
     protected List<Violation> getOrCreateViolationListForName(String name) {

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class ViolationTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ViolationTest.class);
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     static String FIRSTNAME = "firstname";
 

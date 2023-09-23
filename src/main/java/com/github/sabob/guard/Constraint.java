@@ -9,5 +9,4 @@ public interface Constraint {
     default boolean isInvalid(Object value) {
         return !isValid(value);
     }
-
 }

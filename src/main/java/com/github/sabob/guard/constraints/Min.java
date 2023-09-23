@@ -7,13 +7,20 @@ import com.github.sabob.guard.utils.StringUtils;
 import com.github.sabob.guard.utils.GuardUtils;
 import com.github.sabob.guard.violation.Violation;
 
+/**
+ * Min validator apply to numeric values and validate that the values are
+ * greater than or equal to the number specify in parameter.
+ *
+ * Supported types are Number.class
+ * Other data types aren't validated and isValid() will return true.
+ */
 public class Min implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("min.message");
 
-    private int min;
+    private Number min;
 
-    public Min(int min) {
+    public Min(Number min) {
         this.min = min;
     }
 
@@ -23,26 +30,18 @@ public class Min implements Constraint {
         Object value = guardContext.getValue();
 
         boolean valid = isValid(value);
+        if (valid) return;
 
-        if (!valid) {
-
-            String name = StringUtils.capitalize(guardContext.getName());
-            Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, min);
-            guardContext.addViolation(violation);
-        }
-
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label, min);
+        guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
-        }
-        if (!(value instanceof Number)) {
-            throw new IllegalStateException(value.getClass() + " is not a valid type for the " + this.getClass()
-                    .getSimpleName() +
-                    " constraint. " + this.getClass().getSimpleName() + " can only be applied to numbers.");
         }
 
         Number number = (Number) value;
@@ -51,5 +50,11 @@ public class Min implements Constraint {
         return valid;
     }
 
+    public boolean supported(Object value) {
+        if (value instanceof Number) {
+            return true;
+        }
+        return false;
+    }
 }
 

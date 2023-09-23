@@ -22,22 +22,29 @@ public class Email implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
         }
 
-        String strValue = GuardUtils.ensureValueIsString(Email.class.getSimpleName(), value);
+        String strValue = value.toString();
 
         boolean valid = Validators.isEmail(strValue);
         return valid;
     }
+
+      public boolean supported(Object value) {
+        if (value instanceof CharSequence) {
+            return true;
+        }
+        return false;
+      }
 }
 

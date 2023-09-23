@@ -80,7 +80,7 @@ public abstract class AbstractNumericalBetweenConstraint implements Constraint {
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
         }
 
@@ -98,6 +98,13 @@ public abstract class AbstractNumericalBetweenConstraint implements Constraint {
             return isBetween(length);
         }
 
+        return true;
+    }
+
+    public boolean supported(Object value) {
+        if (value == null) {
+            return false;
+        }
         return true;
     }
 
@@ -142,26 +149,26 @@ public abstract class AbstractNumericalBetweenConstraint implements Constraint {
 
     protected void addBetweenViolation(GuardContext guardContext, int length) {
 
-        String name = StringUtils.capitalize(guardContext.getName());
+        String label = StringUtils.messageLabel(guardContext);
         String template = getBetweenTemplate();
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, name, length, min, max);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, label, length, min, max);
         guardContext.addViolation(violation);
 
     }
 
     protected void addMinValidator(GuardContext guardContext, int length) {
 
-        String name = StringUtils.capitalize(guardContext.getName());
+        String label = StringUtils.messageLabel(guardContext);
         String template = getMinTemplate();
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, name, length, min);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, label, length, min);
         guardContext.addViolation(violation);
     }
 
     protected void addMaxValidator(GuardContext guardContext, int length) {
 
-        String name = StringUtils.capitalize(guardContext.getName());
+        String label = StringUtils.messageLabel(guardContext);
         String template = getMaxTemplate();
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, name, length, max);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, template, label, length, max);
         guardContext.addViolation(violation);
     }
 

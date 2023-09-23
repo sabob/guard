@@ -14,25 +14,59 @@ public class DigitsOnlyTest {
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     @Test
-    public void ensureDigitsOnly() {
+    public void ensureStringDigitsPass() {
+
+        PrimBean bean = new PrimBean();
+        bean.setString("123");
+
+        Guard guard = new Guard();
+
+        Violations violations = guard.of("test")
+                .value(bean.getString())
+                .constraint(new DigitsOnly())
+                .validate();
+
+        System.out.println(violations.getList("test"));
+        Assertions.assertTrue(violations.isValid());
+    }
+
+     @Test
+    public void ensureStringDigitsFail() {
+
+        PrimBean bean = new PrimBean();
+        bean.setString("abc");
+
+        Guard guard = new Guard();
+
+        Violations violations = guard.of("test")
+                .value(bean.getString())
+                .constraint(new DigitsOnly())
+                .validate();
+
+        System.out.println(violations.getList("test"));
+        Assertions.assertTrue(violations.isInvalid());
+    }
+
+    @Test
+    public void testIntNotSupported() {
 
         PrimBean bean = new PrimBean();
         bean.setInt(125);
 
         Guard guard = new Guard();
 
-        Assertions.assertThrows(IllegalStateException.class, () -> {
+        Violations violations = guard.of("test")
+                .value(bean.getInt())
+                .constraint(new DigitsOnly())
+                .validate();
 
-            Violations violations = guard.of("test.1")
-                    .value(bean.getInt())
-                    .constraint(new DigitsOnly())
-                    .validate();
+        System.out.println(violations.getList("test"));
+        Assertions.assertTrue(violations.isValid());
 
-        });
     }
 
     @Test
-    public void testNull() {
+    public void testNullNotSupported() {
 
         ObjectBean bean = new ObjectBean();
         bean.setString(null);
@@ -40,12 +74,12 @@ public class DigitsOnlyTest {
         Guard guard = new Guard();
         Violations violations;
 
-        violations = guard.of("test.2")
+        violations = guard.of("test")
                 .value(bean.getString())
                 .constraint(new DigitsOnly())
                 .validate();
 
-        System.out.println(violations.getList("test.1"));
+        System.out.println(violations.getList("test"));
         Assertions.assertTrue(violations.isValid());
     }
 

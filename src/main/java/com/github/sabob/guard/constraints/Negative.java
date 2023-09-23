@@ -10,8 +10,10 @@ import com.github.sabob.guard.violation.Violation;
 /**
  * Negative validator apply to numeric values and validate that they
  * are strictly negative values.
+ *
+ * Supported types are Number.class
+ * Other data types aren't validated and isValid() will return true.
  */
-
 public class Negative implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("negative.message");
@@ -24,26 +26,28 @@ public class Negative implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
-        }
-        if (!(value instanceof Number)) {
-            throw new IllegalStateException(value.getClass() + " is not a valid type for the " + this.getClass()
-                    .getSimpleName() +
-                    " constraint. " + this.getClass().getSimpleName() + " can only be applied to numbers.");
         }
 
         Number numberValue = (Number) value;
 
         boolean valid = NumberUtils.isNegative(numberValue);
         return valid;
+    }
+
+    public boolean supported(Object value) {
+        if (value instanceof Number) {
+            return true;
+        }
+        return false;
     }
 }

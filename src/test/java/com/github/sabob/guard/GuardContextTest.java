@@ -1,6 +1,5 @@
 package com.github.sabob.guard;
 
-import com.github.sabob.guard.constraints.Max;
 import com.github.sabob.guard.constraints.NotNull;
 import com.github.sabob.guard.constraints.Required;
 import com.github.sabob.guard.constraints.Size;
@@ -13,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class GuardContextTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GuardContextTest.class);
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Test
     public void testContextSwitchingHasViolationsPerName() {
@@ -28,10 +27,10 @@ public class GuardContextTest {
                 .constraint(new Required())
                 .validate();
 
-        LOGGER.info("some_name violations size {}", violations.getList("some_name").size());
+        log.info("some_name violations size {}", violations.getList("some_name").size());
         Assertions.assertTrue(violations.getList("some_name").size() == 1);
 
-        LOGGER.info("other_name violations size {}", violations.getList("other_name").size());
+        log.info("other_name violations size {}", violations.getList("other_name").size());
         Assertions.assertTrue(violations.getList("other_name").size() == 1);
     }
 
@@ -46,7 +45,7 @@ public class GuardContextTest {
                 .constraint(new Size().max(5))
                 .validate();
 
-        LOGGER.info("Violations size {}", violations.getList().size());
+        log.info("Violations size {}", violations.getList().size());
         Assertions.assertTrue(violations.getList().size() == 2);
     }
 
@@ -64,7 +63,7 @@ public class GuardContextTest {
 
         Assertions.assertEquals(guardViolation, contextViolation);
 
-        LOGGER.info("Violation message {}", guardViolation.getMessage());
-        LOGGER.info("Context violation message {}", contextViolation.getMessage());
+        log.info("Violation message {}", guardViolation.getMessage());
+        log.info("Context violation message {}", contextViolation.getMessage());
     }
 }

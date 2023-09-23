@@ -72,4 +72,11 @@ public class FractionLength extends AbstractNumericalBetweenConstraint {
     protected String getPartName() {
         return "fractional";
     }
+
+    public boolean supported(Object value) {
+        if (value instanceof Number) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * Validate that the date value is in the future.
- * Supported types are Date, Calendar, LocalDate and LocalDateTime.
+ *  * Supported types are java.util.Date, java.sql.Date, Calendar, LocalDate and LocalDateTime. Other data types aren't validated and isValid() will return true.
  */
 public class Future extends AbstractDateTimeConstraint {
 
@@ -31,9 +31,9 @@ public class Future extends AbstractDateTimeConstraint {
     }
 
     @Override
-    protected void addViolation(GuardContext context) {
-        String name = StringUtils.capitalize(context.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(context, messageTemplate, name);
-        context.addViolation(violation);
+    protected void addViolation(GuardContext guardContext) {
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
+        guardContext.addViolation(violation);
     }
 }

@@ -6,7 +6,12 @@ import com.github.sabob.guard.utils.StringUtils;
 import com.github.sabob.guard.utils.GuardUtils;
 import com.github.sabob.guard.violation.Violation;
 
-//The value of the value or values in collection must not be empty.
+/**
+ * Validates that the value or values in collection must not be empty.
+ *
+ * Supported types are CharSequence (String), Maps, Arrays and Collections.
+ * Other data types aren't validated and isValid() will return true.
+ */
 public class NotEmpty implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("not.empty.message");
@@ -22,13 +27,17 @@ public class NotEmpty implements Constraint {
         boolean valid = isValid(value);
         if (valid) return;
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
+
+        if (!supported(value)) {
+            return true;
+        }
 
         try {
             Size sizeConstraint = new Size().min(1);
@@ -39,5 +48,9 @@ public class NotEmpty implements Constraint {
             newMsg = newMsg.replace(Size.class.getSimpleName(), NotEmpty.class.getSimpleName());
             throw new IllegalStateException(newMsg);
         }
+    }
+
+    public boolean supported(Object value) {
+        return new Size().supported(value);
     }
 }

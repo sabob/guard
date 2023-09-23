@@ -13,6 +13,10 @@ public class GuardContext {
 
     protected String name;
 
+    protected boolean pathWasSet = false;
+
+    protected String path;
+
     protected boolean codeWasSet = false;
 
     protected String code;
@@ -49,6 +53,19 @@ public class GuardContext {
         }
         this.nameWasSet = true;
         this.name = name;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public GuardContext path(String path) {
+        setPath(path);
+        return this;
     }
 
     public String getCode() {
@@ -95,8 +112,9 @@ public class GuardContext {
 
     public Violation toViolation() {
         Violation violation = new Violation();
-        violation.setCode(getCode());
         violation.setName(getName());
+        violation.setPath(getPath());
+        violation.setCode(getCode());
         violation.setValue(getValue());
         violation.setMessage(getMessage());
         return violation;
@@ -105,6 +123,7 @@ public class GuardContext {
     @Override
     public GuardContext clone() {
         GuardContext clone = new GuardContext(getName());
+        clone.setPath(getPath());
         clone.setCode(getCode());
         clone.setMessage(getMessage());
 
@@ -120,6 +139,10 @@ public class GuardContext {
 
         if (guardContext.nameWasSet) {
             clone.setName(guardContext.getName());
+        }
+
+        if (guardContext.pathWasSet) {
+            clone.setPath(guardContext.getPath());
         }
 
         if (guardContext.codeWasSet) {
@@ -169,11 +192,27 @@ public class GuardContext {
 
     }
 
+    public GuardContext throwIfInvalid() throws GuardViolationException {
+        if (invalid()) {
+            throw new GuardViolationException(getViolations());
+        }
+        return this;
+    }
+
+    public boolean valid() {
+        return violations.isValid();
+    }
+
+    public boolean invalid() {
+        return !valid();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("GuardContext { " +
                 "name = " + name +
+                "path = " + path +
                 ", code = " + code);
 
         if (message == null) {

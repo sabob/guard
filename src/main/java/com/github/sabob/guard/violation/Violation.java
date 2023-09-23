@@ -4,6 +4,8 @@ public class Violation {
 
     private String name;
 
+    private String path;
+
     private String code;
 
     private String message;
@@ -52,6 +54,14 @@ public class Violation {
         this.code = code;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public Object getValue() {
         return value;
     }
@@ -62,11 +72,12 @@ public class Violation {
 
     @Override
     public String toString() {
-        return "Violation { " +
-                "name = " + name +
-                ", code = " + code +
-                ", value = " + value +
-                ", message = \"" + message + "\"" +
-                " }";
+        return "\nViolation {" +
+                "\n   name = " + name +
+                "\n   path = " + path +
+                "\n   code = " + code +
+                "\n   value = " + value +
+                "\n   message = \"" + message + "\"" +
+                "\n}";
     }
 }

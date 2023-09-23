@@ -1,6 +1,5 @@
 package com.github.sabob.guard;
 
-import com.github.sabob.guard.constraints.Max;
 import com.github.sabob.guard.constraints.NotEmpty;
 import com.github.sabob.guard.constraints.NotNull;
 import com.github.sabob.guard.constraints.NumberOnly;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class GuardTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GuardTest.class);
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Test
     public void testAddPerson() {
@@ -70,8 +69,8 @@ public class GuardTest {
                 .constraint(new NotEmpty())
                 .validate();
 
-        LOGGER.info("Violations {}", guard.getViolations().getList());
-        LOGGER.info("Context {}", guard.getContext());
+        log.info("Violations {}", guard.getViolations().getList());
+        log.info("Context {}", guard.getContext());
     }
 
     @Test
@@ -81,16 +80,6 @@ public class GuardTest {
 
             // cannot use null as guard name
             Guard guard = new Guard(null);
-        });
-    }
-
-    @Test
-    public void testEmptyConstructor() {
-
-        Assertions.assertThrows(IllegalStateException.class, () -> {
-
-            Guard guard = new Guard();
-            guard.context();
         });
     }
 
@@ -116,7 +105,7 @@ public class GuardTest {
                 .constraint(new NumberOnly()) // value must consist of numbers only
                 .validate();
 
-        LOGGER.info("Violations {}", violations.getList());
+        log.info("Violations {}", violations.getList());
         Assertions.assertTrue(violations.isInvalid());
         Assertions.assertTrue(violations.getList().size() == 2);
 

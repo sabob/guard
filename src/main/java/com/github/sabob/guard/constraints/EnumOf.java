@@ -10,6 +10,12 @@ import com.github.sabob.guard.violation.Violation;
 import java.util.EnumSet;
 import java.util.StringJoiner;
 
+/**
+ * The value of the field or property must be an enum or convertable to an enum of the given type.
+ *
+ * Supported types are getClass().isEnum() or CharSequence (String).
+ * Other data types aren't validated and isValid() will return true.
+ */
 public class EnumOf implements Constraint {
 
     protected static final String messageTemplate = GuardUtils.getProperties().getProperty("enum.of.message");
@@ -42,9 +48,9 @@ public class EnumOf implements Constraint {
         enumSet.forEach(en -> joiner.add(en.name()));
         String validValues = joiner.toString();
 
-        String name = StringUtils.capitalize(guardContext.getName());
+        String label = StringUtils.messageLabel(guardContext);
         Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate,
-                name,
+                label,
                 guardContext.getValue(),
                 enumClass.getSimpleName(),
                 validValues);
@@ -54,7 +60,7 @@ public class EnumOf implements Constraint {
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
         }
 
@@ -67,16 +73,26 @@ public class EnumOf implements Constraint {
             valid = Validators.isValidEnumValue(en, enumClass);
 
         } else {
-            String strValue = GuardUtils.ensureValueIsString(EnumOf.class.getSimpleName(), value);
+            String strValue = value.toString();
             valid = Validators.isValidEnumValue(strValue, enumClass);
         }
 
         return valid;
     }
+
+    public boolean supported(Object value) {
+        if (value == null) {
+            return false;
+        }
+
+        boolean isEnum = value.getClass().isEnum();
+        if (isEnum) {
+            return true;
+        }
+
+        if (value instanceof CharSequence) {
+            return true;
+        }
+        return false;
+    }
 }
-
-
-
-
-
-

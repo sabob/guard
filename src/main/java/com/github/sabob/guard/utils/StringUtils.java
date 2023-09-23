@@ -1,5 +1,7 @@
 package com.github.sabob.guard.utils;
 
+import com.github.sabob.guard.GuardContext;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -58,6 +60,17 @@ public class StringUtils {
 
     public static boolean isNotBlank(final String str) {
         return !isBlank(str);
+    }
+
+    public static String messageLabel(GuardContext guardContext) {
+
+        String path = guardContext.getPath();
+        if (StringUtils.isBlank(path)) {
+            path = "";
+        }
+
+        String label = path + guardContext.getName();
+        return label;
     }
 
     public static String capitalize(String value) {

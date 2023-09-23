@@ -5,6 +5,9 @@ import com.github.sabob.guard.utils.GuardUtils;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Supported types are CharSequence (String), Maps, Arrays and Collections. Other data types aren't validated and isValid() will return true.
+ */
 public class Size extends AbstractNumericalBetweenConstraint {
 
     public Size() {
@@ -66,14 +69,21 @@ public class Size extends AbstractNumericalBetweenConstraint {
             return array.length;
         }
 
-        if (value instanceof String) {
-            String str = (String) value;
-            return str.length();
+        String str = value.toString();
+        return str.length();
+    }
+
+    public boolean supported(Object value) {
+        if (value == null) {
+            return false;
         }
 
-        throw new IllegalStateException(value.getClass() + " is not a valid type for the " +
-                this.getClass().getSimpleName() +
-                " constraint. " + this.getClass().getSimpleName() +
-                " can only be applied to Strings, Maps, Arrays and Collections.");
+        if (value instanceof Collection
+                || value instanceof Map
+                || value.getClass().isArray()
+                || value instanceof CharSequence) {
+            return true;
+        }
+        return false;
     }
 }

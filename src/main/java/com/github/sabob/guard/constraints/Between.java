@@ -29,20 +29,16 @@ public class Between implements Constraint {
         if (valid) return;
 
 
-        String name = StringUtils.capitalize(guardContext.getName());
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, name, min, max);
+        String label = StringUtils.messageLabel(guardContext);
+        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label, min, max);
         guardContext.addViolation(violation);
     }
 
     @Override
     public boolean isValid(Object value) {
 
-        if (value == null) {
+        if (!supported(value)) {
             return true;
-        }
-
-        if (!(value instanceof Number)) {
-            throw new IllegalStateException("The value for a *Between* constraint must be a Number! Value type given: " + value.getClass());
         }
 
         Number numberValue = (Number) value;
@@ -55,5 +51,12 @@ public class Between implements Constraint {
             return false;
         }
         return true;
+    }
+
+    public boolean supported(Object value) {
+        if (value instanceof Number) {
+            return true;
+        }
+        return false;
     }
 }

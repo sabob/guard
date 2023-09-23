@@ -4,6 +4,8 @@ public class BasicViolationMessage {
 
     private String name;
 
+    private String path;
+
     private String code;
 
     private String message;
@@ -34,6 +36,14 @@ public class BasicViolationMessage {
         this.name = name;
     }
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public String getMessage() {
         return message;
     }
@@ -54,6 +64,7 @@ public class BasicViolationMessage {
     public String toString() {
         return "Violation { " +
                 "name = " + name +
+                "path = " + path +
                 ", code = " + code +
                 ", message = \"" + message + "\"" +
                 " }";

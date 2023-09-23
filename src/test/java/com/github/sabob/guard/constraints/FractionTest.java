@@ -11,7 +11,7 @@ import com.github.sabob.guard.violation.Violations;
 
 public class FractionTest {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Test
     public void maxTest() {
@@ -27,7 +27,7 @@ public class FractionTest {
                 .constraint(new FractionLength(0, 2))
                 .validate();
 
-        LOGGER.info("Result {}", guard.getViolations().getList());
+        log.info("Result {}", guard.getViolations().getList());
         Assertions.assertTrue(violations.isInvalid());
 
     }
@@ -47,7 +47,7 @@ public class FractionTest {
                 .constraint(new FractionLength(5, 0))
                 .validate();
 
-        LOGGER.info("Result {}", guard.getViolations().getList());
+        log.info("Result {}", guard.getViolations().getList());
         Assertions.assertTrue(violations.isInvalid());
 
     }
@@ -63,7 +63,7 @@ public class FractionTest {
                 .constraint(new Size(10, 15))
                 .validate();
 
-        LOGGER.info("Result {}", guard.getViolations().getList());
+        log.info("Result {}", guard.getViolations().getList());
 
         Assertions.assertTrue(violations.isValid());
 
