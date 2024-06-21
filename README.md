@@ -2,7 +2,7 @@
 
 Guard is a simple and easy-to-use, general purpose, validation library for Java.
 
-The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
+The idea behind Guard is to guard objects, or more specifically, the data properties of an object.
 
 Constraints are applied to the values of the object and all violations of the constraint are added
 to a list. Once all the constraints are applied, you can retrieve the list of violations and
