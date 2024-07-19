@@ -24,33 +24,18 @@ public class Required implements Constraint {
 
         String label = StringUtils.messageLabel(guardContext);
         String messageTemplate = GuardUtils.getProperties().getProperty("required.message");
-        Violation violation = GuardUtils.toViolationWithTemplateMessage(guardContext, messageTemplate, label);
-        guardContext.addViolation(violation);
     }
 
     @Override
-    public boolean isValid(Object value) {
+    public void apply(GuardContext guardContext) {
 
-        NotNull notNull = new NotNull();
-        if (notNull.isInvalid(value)) {
-            return false;
-        }
+        Object value = guardContext.getValue();
 
-        if (value instanceof CharSequence) {
-            // For strings, we use NotBlank
-            NotBlank notBlank = new NotBlank();
-            if (notBlank.isValid(value)) {
-                return true;
-            }
-        } else {
+        boolean valid = isValid(value);
+        if (valid) return;
 
-            // For everything else, we use NotEmpty
-            NotEmpty notEmpty = new NotEmpty();
-            if (notEmpty.isValid(value)) {
-                return true;
-            }
-        }
-
-        return false;
+        String label = StringUtils.messageLabel(guardContext);
+        String messageTemplate = GuardUtils.getProperties().getProperty("required.message");
     }
+
 }
