@@ -2,15 +2,20 @@
 
 Guard is a simple and easy-to-use, general purpose, validation library for Java.
 
-The idea behind Guard is to guard objects, in most cases, the individual fields of an object.
+The idea behind Guard is to guard objects, or more specifically, the data properties of an object.
 
-Constraints are applied to the values of the object and all violations of the constraint are added
-to a list. Once all the constraints are applied, you can retrieve the list of violations and
-then throw an exception containing this list or branch your code depending on a violation.
+Guard provides a variety of constraints that can be applied to the data properties of an object. 
+Once all constraints have been applied, you can retrieve the list of violation which contain the metadata
+of the data property eg. it's name, value and error message.
 
-You can set Guard to fail-fast if a constraint is violated, meaning it will throw an exception
-immediately. Or run leniently and wait until all constraints have been applied before retrieving
-the list of violations.
+Once all the violations have been gathered you can throw an exception to return all the messages to the user.
+
+In the context of a REST api, you could return a 400 (BadRequest) containing the list of violations.
+Even better is to extend the Problem standard (RFC 9457) and add your violations as part of the payload.
+
+By default Guard is set to lenient mode, meaning it simply stores the violations to a list.
+You can also set Guard to _fail-fast_. In this mode Guard will throw an exception immediately if a constraint is violated.
+
 
 ### Why not use Bean Validation or a different Validation library?
 
