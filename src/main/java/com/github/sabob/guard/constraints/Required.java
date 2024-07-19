@@ -28,22 +28,27 @@ public class Required implements Constraint {
         guardContext.addViolation(violation);
     }
 
-    public boolean isValid2(Object value) {
-
-        NotNull notNull = new NotNull();
-        if (notNull.isInvalid(value)) {
-            return true;
-        }
-
-        return false;
-    }
-
     @Override
     public boolean isValid(Object value) {
 
         NotNull notNull = new NotNull();
         if (notNull.isInvalid(value)) {
-            return true;
+            return false;
+        }
+
+        if (value instanceof CharSequence) {
+            // For strings, we use NotBlank
+            NotBlank notBlank = new NotBlank();
+            if (notBlank.isValid(value)) {
+                return true;
+            }
+        } else {
+
+            // For everything else, we use NotEmpty
+            NotEmpty notEmpty = new NotEmpty();
+            if (notEmpty.isValid(value)) {
+                return true;
+            }
         }
 
         return false;
