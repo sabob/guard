@@ -43,7 +43,7 @@ public class FutureTest {
         Guard guard = new Guard();
         DateBean bean = new DateBean();
 
-        bean.setLocalDateTime(LocalDateTime.of(2024, 1, 8, 8, 00));
+        bean.setLocalDateTime(LocalDateTime.of(3025, 1, 8, 8, 00));
 
         violations = guard.of("test.2")
                 .value(bean.getLocalDateTime())
